@@ -233,8 +233,6 @@
 							</blockquote></li>
 						</ul>
 					</section>
-				</section>
-				<section>
 					<section style="margin-top:-80px">
 						<h3>OOO 프로젝트</h3>
 						<img src="image/OOOPrj-after4.png"/>
@@ -302,7 +300,89 @@
 					</section>
 				</section>
 				<section>
-					<h3>HTML Compiler</h3>
+					<section>
+						<h2>HTML Compiler</h2>
+						<h4>AngularJS Bootstrap에서 진행됨</h4><br>
+<div style="width:60%;float:left">
+<div id="domFromServer">
+<pre><code  data-trim>
+<!-- ... -->
+<x-flicking uid="mainflick">
+	<x-panel>
+		{{data0}}
+	</x-panel>
+	<x-panel>
+		{{data1}}
+	</x-panel>
+	<x-panel>
+		{{data2}}
+	</x-panel>
+</x-flicking>
+<!-- ... -->
+</code></pre>
+<h4>&lt;HTML&gt;</h4>
+</div>
+<div class="fragment" data-fragment-index="2" id="templateFromDom">
+<pre><code  data-trim>
+<!-- ... -->
+<div class="mainflick-view">
+	<div class="mainflick-container">
+    		<div class="mainflick-ct">
+    			{{data0}}
+    		</div>
+    		<div class="mainflick-ct">
+    			{{data1}}
+    		</div>
+    		<div class="mainflick-ct">
+    			{{data2}}
+    		</div>
+    	</div>
+</div>
+<!-- ... -->
+</code></pre>
+<h4>&lt;Template&gt;</h4>
+</div>
+<div class="fragment" data-fragment-index="4" id="viewFromTemplate">
+<pre><code  data-trim>
+<!-- ... -->
+<div class="mainflick-view">
+	<div class="mainflick-container">
+    		<div class="mainflick-ct">
+		Jindo
+    		</div>
+    		<div class="mainflick-ct">
+    		Jindo Mobile Component
+    		</div>
+    		<div class="mainflick-ct">
+    		Jindo Component
+    		</div>
+    	</div>
+</div>
+<!-- ... -->
+</code></pre>
+<h4>&lt;View&gt;</h4>
+</div>
+</div>
+						<div style="float:left;text-align: left">
+							<br>
+							<p >HTML from Server</p>
+							<p class="fragment" data-fragment-index="1" style="margin-left:40px"> - <strong class="semi-emphasize">compile phase</strong></p>
+							<br>
+							<p class="fragment" data-fragment-index="2">Template from DOM</p>
+							<p class="fragment" data-fragment-index="3"style="margin-left:40px"> - <strong class="emphasize">link phase</strong></p>
+							<br>
+							<p style="text-align: left" class="fragment" data-fragment-index="4">View from Template</p>
+						</div>
+					</section>
+					<section>
+						<h2>HTML Compiler</h2>
+						<h4>초기 로딩 이슈</h4>
+						<br>
+						<ul>
+							<li>페이지 로딩 도중 초기 DOM이나 Template이 노출되는 경우</li>
+							<li>AngularJS Bootstrap이 완료될때까지 DOM이 노췰되지 않는 경우</li>
+						</ul>
+					</section>
 				</section>
 				<section>
 					<h2>감사합니다.</h2>
@@ -370,7 +450,7 @@
 						break;
 					case "when-detail_after" :
 						document.getElementById("when-detail").style.display = "none";
-						// event.fragment.style.display = "block";
+						event.fragment.style.display = "";
 						break;
 					case "digest_after1" :
 						document.getElementById("digest").src= "image/digest-after1.png";
@@ -389,6 +469,16 @@
 						break;
 					case "store_after2" :
 						document.getElementById("store").src= "image/store-after2.png";
+						break;
+					case "templateFromDom" :
+						document.getElementById("domFromServer").style.display = "none";
+						document.getElementById("viewFromTemplate").style.display = "none";
+						event.fragment.style.display = "";
+						break;
+					case "viewFromTemplate" :
+						document.getElementById("domFromServer").style.display = "none";
+						document.getElementById("templateFromDom").style.display = "none";
+						event.fragment.style.display = "";
 						break;
 				}
 			} );
@@ -436,6 +526,18 @@
 						break;
 					case "store_after2" :
 						document.getElementById("store").src= "image/store-after1.png";
+						break;
+					case "viewFromTemplate" :
+						setTimeout(function() {
+							document.getElementById("templateFromDom").style.display = "";
+						},300);
+						// event.fragment.style.display = "none";
+						break;
+					case "templateFromDom" :
+						setTimeout(function() {
+							document.getElementById("domFromServer").style.display = "";
+						},300);
+						// event.fragment.style.display = "none";
 						break;
 				}
 			} );
