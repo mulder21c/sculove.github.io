@@ -91,7 +91,7 @@
 						<!-- <img class="fragment" style="-webkit-transform: translate(-50%, -50%);position: absolute;left: 50%;top: 50%;" src="image/devtools.jpeg"> -->
 					</section>
 					<section>
-						<h2>도입 목적</h2>
+						<h3>도입 목적</h3>
 						<br>
 						<ul>
 							<li><strong class="semi-emphasize">SPA(Single Page Allication)</strong> 형태의 개발이 필요</li>
@@ -103,7 +103,7 @@
 						<blockquote class="fragment"> 개발자의 <strong class="emphasize">생산성</strong> 짱!</blockquote>
 					</section>
 					<section>
-						<h2>실서비스 적용시 어려움</h2>
+						<h3>실서비스 적용시 어려움</h3>
 						<br>
 						<ul>
 							<li>학습 비용에 대한 어려움</li>
@@ -198,7 +198,7 @@
 							</ul>
 						</blockquote>
 					</section>
-					<section style="margin-top:-100px">
+					<section style="margin-top:-70px">
 						<h2>Two-Way Data Binding 원리</h2>
 						<h4>확인 방법 (Dirty Checking)</h4>
 						<img id="digest" src="image/digest.png"/>
@@ -206,8 +206,7 @@
 						<div id="digest_after2" class="fragment" style="display:none"></div>
 						<div id="digest_after3" class="fragment" style="display:none"></div>
 						<blockquote class="fragment" >
-							<p>기존 값 변경 여부를 확인하기 위해</p>
-							<p>Digest Loop는 <strong class="semi-emphasize">최소 2번</strong>. <strong class="emphasize">최대 10번</strong>이 호출</p>
+							Digest Loop는 <strong class="semi-emphasize">최소 2번</strong>. <strong class="emphasize">최대 10번</strong>이 호출
 						</blockquote>
 					</section>
 					<section>
@@ -223,7 +222,7 @@
 					</section>
 					<section>
 						<h2>Two-Way Data Binding 원리</h2>
-						<h4>Dirty Checking 수행 시간</h4>
+						<h4>Dirty Checking 수행 시간</h4><br>
 						<ul>
 							<li>watch 대상 개수가 n개 이면,<br><blockquote>
 							<string class="semi-emphasize">Scope당 수행시간</string> = 각 watch의 watchExpression 수행시간 * n</blockquote></li>
@@ -233,7 +232,7 @@
 							</blockquote></li>
 						</ul>
 					</section>
-					<section style="margin-top:-80px">
+					<section style="margin-top:-70px">
 						<h3>OOO 프로젝트</h3>
 						<img src="image/OOOPrj-after4.png"/>
 						<blockquote style="font-size:30px;"><string class="semi-emphasize">총 수행시간</string> = 각 watch의 watchExpression 수행시간 * n * s * (2~10)
@@ -380,7 +379,7 @@
 						<br>
 						<ul>
 							<li>페이지 로딩 도중 초기 DOM이나 Template이 노출되는 경우</li>
-							<li>AngularJS Bootstrap이 완료될때까지 DOM이 노췰되지 않는 경우</li>
+							<li>AngularJS Bootstrap이 완료될 때까지 DOM이 노출되지 않는 경우</li>
 						</ul>
 					</section>
 				</section>
