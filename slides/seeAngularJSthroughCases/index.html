@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ko">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>사례를 통해 AngularJS 알아보기</title>
+
+		<meta name="description" content="Let's see angularJS through cases">
+		<meta name="author" content="sculove. 손찬욱">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../../revealjs/css/theme/moon.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../revealjs/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-37362821-4', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style>
+            .emphasize {
+                color: #FF5E99;
+            }
+
+            li {
+            	margin-top : 10px !important;
+            	font-size : 0.8em !important;
+            }
+
+            .semi-emphasize {
+            	color : #268bd2;
+            }
+
+            blockquote {
+            	width : 100% !important;
+            }
+
+            img {
+            	border :0px !important;
+            }
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-transition="linear" data-background-transition="slide">
+					<h3>사례를 통해</h3>
+					<h2>AngularJS 알아보기</h2><br>
+					<h4>부제 : "AngularJS 성능 이슈에 대한 이야기"</h4>
+					<br>
+					<p>
+						<small>Created by <a href="http://sculove.pe.kr">손찬욱</a> / <a href="https://www.facebook.com/chanuk.son">chanuk.son</a></small>
+					</p>
+				</section>
+				<section>
+					<section>
+						<h2>AngularJS 도입 사례</h2>
+						<br>
+						<img src="image/interviewer.png" style="border:0px solid black">
+						<!-- <img class="fragment" style="-webkit-transform: translate(-50%, -50%);position: absolute;left: 50%;top: 50%;" src="image/devtools.jpeg"> -->
+					</section>
+					<section>
+						<h2>도입 목적</h2>
+						<br>
+						<ul>
+							<li><strong class="semi-emphasize">SPA(Single Page Allication)</strong> 형태의 개발이 필요</li>
+							<li>사용자 인터렉션이 많아, 화면 영역 변경이 많은 경우<br>(<strong class="emphasize">Two-Way Data Binding</strong>이 필요한 경우)</li>
+							<li>유지보수 및 인수인계가 용이</li>
+							<li>다른 MVC 프레임웍에 비해 쉽고 명확함.</li>
+						</ul>
+						<br><br>
+						<blockquote class="fragment"> 개발자의 <strong class="emphasize">생산성</strong> 짱!</blockquote>
+					</section>
+					<section>
+						<h2>실서비스 적용시 어려움</h2>
+						<br>
+						<ul>
+							<li>학습 비용에 대한 어려움</li>
+							<li><strong class="semi-emphasize">지원 범위</strong>에 대한 이슈</li>
+							<li><strong class="semi-emphasize">디버깅</strong>에 대한 어려움</li>
+							<li><strong class="emphasize">성능</strong>에 대한 이슈</li>
+						</ul>
+						<br><br>
+						<blockquote class="fragment"> 이 발표는 <strong class="emphasize">성능 이슈</strong>에 대한 이야기입니다.</blockquote>
+					</section>
+				</section>
+				<section>
+					<section data-background="#8c4738">
+						<h2>적용 사례 1.</h2>
+					</section>
+					<section>
+						<h3>Pinpoint</h3>
+						<h4><a href='http://dev.pinpoint.nhncorp.com/' target="_blank">http://dev.pinpoint.nhncorp.com/</a></h4>
+						<img id="pinpoint_img" src="image/pinpoint.png"/>
+						<div id="pinpoint_img_after" class="fragment" style="display:none"></div>
+						<br>
+						<blockquote class="fragment"> <strong class="emphasize">독립된</strong> Directive 내에서의 <strong class="semi-emphasize">Two-Way Data Binding </strong></blockquote>
+					</section>
+					<section>
+						<h3>OOO 프로젝트</h3>
+						<img id="OOOprj_img" src="image/OOOPrj.png"/>
+						<div id="OOOprj_img_after1" class="fragment" style="display:none"></div>
+						<div id="OOOprj_img_after2" class="fragment" style="display:none"></div>
+						<div id="OOOprj_img_after3" class="fragment" style="display:none"></div>
+						<div id="OOOprj_img_after4" class="fragment" style="display:none"></div>
+
+						<div class="fragment">
+							<blockquote> <strong class="emphasize">실시간</strong> 으로 <strong class="semi-emphasize">각각의 영역</strong>을 갱신해야하는 경우, 성능 이슈 발생</blockquote>
+							<p>헉~! 클릭이 안될 정도로 느려요</p>
+						</div>
+					</section>
+					<section>
+						<h1>Why?</h1>
+						<h3 class="fragment"><strong class="emphasize">Two-Way Data Binding</strong></h3>
+						<div class="fragment">
+							<br>
+							<img src="image/question.png" style="border:0px solid black; "><br>
+							<p>이럴 때 써라고 있는 거 아닌가요???</p>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Two-Way Data Binding</h2>
+						<br>
+						<img id="two-way" src="image/two-way.png" style="border:0px solid black; float:left "><br>
+						<ul >
+							<li>View에 의해 Model 갱신</li>
+							<li>Model에 의해 View 갱신</li>
+						</ul><br><br>
+						<h5 ><strong class="semi-emphasize">하나의 Model</strong>을 <br>지속적으로 갱신</h5>
+						<br><br>
+						<blockquote class="fragment" > <strong class="semi-emphasize">누구</strong>(View or Model)를, <strong class="semi-emphasize">언제</strong>(변경시점) <strong class="emphasize">갱신</strong>할 것 인가?</blockquote>
+						<div id="two-way_after" class="fragment" style="display:none"></div>
+					</section>
+					<section>
+						<h2>Two-Way Data Binding 원리</h2><br>
+						<h4>대상 검출 </h4>
+						<pre><code data-trim style="font-size: 20px; margin-top: 20px;">$scope.$watch(watchExpression, listener, [objectEquality]);</code></pre>
+						<ul >
+							<li>directive를 컴파일하고, 링크 작업을 할 때, 등록</li>
+							<li>개발자가 직접 등록</li>
+						</ul><br><br>
+						<h4>등록된 대상은 <strong class="semi-emphasize">$scope.$$watchers</strong>에 등록된다.</h4>
+					</section>
+					<section>
+						<h2>Two-Way Data Binding 원리</h2><br>
+						<h4>Data 변경 시점은 어떻게 확인 하는가?</h4><br>
+						<div  id="when" style="color:red; font-weight: bold;">
+							<p style="color:#777">주기적으로 데이터 변경 여부를 확인하는 방법</p>
+						</div>
+						<div id="when_after" class="fragment" style="display:none"></div>
+						<p class="fragment">데이터에 <strong class="semi-emphasize">값이 설정되어 변경되는 시점</strong>에 확인</p><br>
+						<ul id="when-detail" class="fragment">
+							<li>HTML 엘리먼트의 이벤트 핸들러가 작동할 때</li>
+							<li>Ajax 통신의 결과가 도착 했을때</li>
+							<li>URL Hash값이 변경된 경우</li>
+							<li>timer에 의해 발생된 tick 이벤트의 핸들러가 작동할 때</li>
+						</ul>
+						<blockquote id="when-detail_after" class="fragment" >
+							<ul>
+								<li>DOM 이벤트(ng-click, ng-mousedown, ng-change, …)가 발생한 후</li>
+								<li>$http와 $resource에서 응답이 돌아왔을 경우</li>
+								<li>$location에서 URL을 변경한 후</li>
+								<li>$timeout이벤트가 발생한 후</li>
+								<li>$scope.$apply()나 $scope.$digest()가 호출될 때</li>
+							</ul>
+						</blockquote>
+					</section>
+					<section style="margin-top:-100px">
+						<h2>Two-Way Data Binding 원리</h2>
+						<h4>확인 방법 (Dirty Checking)</h4>
+						<img id="digest" src="image/digest.png"/>
+						<div id="digest_after1" class="fragment" style="display:none"></div>
+						<div id="digest_after2" class="fragment" style="display:none"></div>
+						<div id="digest_after3" class="fragment" style="display:none"></div>
+						<blockquote class="fragment" >
+							<p>기존 값 변경 여부를 확인하기 위해</p>
+							<p>Digest Loop는 <strong class="semi-emphasize">최소 2번</strong>. <strong class="emphasize">최대 10번</strong>이 호출</p>
+						</blockquote>
+					</section>
+					<section>
+						<h2>Two-Way Data Binding 원리</h2>
+						<h4>확인 방법 (Dirty Checking)</h4>
+						<img src="image/watch.png"/>
+						<pre><code data-trim style="font-size: 25px; margin-top: 20px;">$scope.$watch(watchExpression, listener, [objectEquality]);</code></pre>
+						<p>함수 watchExpression의 반환값이 'true'이면 listener 호출</p>
+						<br>
+						<blockquote class="fragment" >
+							<p>watch대상 확인시, 매번 <strong class="semi-emphasize">watchExpression</strong>이 호출된다.</p>
+						</blockquote>
+					</section>
+					<section>
+						<h2>Two-Way Data Binding 원리</h2>
+						<h4>Dirty Checking 수행 시간</h4>
+						<ul>
+							<li>watch 대상 개수가 n개 이면,<br><blockquote>
+							<string class="semi-emphasize">Scope당 수행시간</string> = 각 watch의 watchExpression 수행시간 * n</blockquote></li>
+							<li class="fragment">자신을 포함한 자식 Scope의 총 개수가 s개 이면, <br><blockquote><string class="semi-emphasize">한 번의 Digest Loop의 수행시간</string> = scope당 수행시간 * s</blockquote></li>
+							<li class="fragment">Digest Loop 호출 횟수는 최소 2에서 최대 10번이므로, <br>
+							<blockquote><string class="emphasize">총 수행시간</string> = 각 watch의 watchExpression 수행시간 * n * s * (2~10)
+							</blockquote></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section style="margin-top:-80px">
+						<h3>OOO 프로젝트</h3>
+						<img src="image/OOOPrj-after4.png"/>
+						<blockquote style="font-size:30px;"><string class="semi-emphasize">총 수행시간</string> = 각 watch의 watchExpression 수행시간 * n * s * (2~10)
+								</blockquote>
+						<div style="font-size:33px;">
+							<span class="fragment">10ms</span><span class="fragment"> * 5(watch대상)</span><span class="fragment"> * 5 (scope개수)</span><span class="fragment"> * (2~10)</span><span class="fragment"> = <strong class="emphasize">500~2,500 ms</strong></span>
+						</div>
+					</section>
+					<section>
+						<h3>어떻게 개선할 수 있나?</h3><br>
+						<blockquote style="font-size:30px;">총 수행시간 = 각 watch의 watchExpression 수행시간 * n * s * (2~10)
+						</blockquote>
+						<div class="fragment fade-out" data-fragment-index="5" style="font-size:33px;">
+							<span class="fragment highlight-current-red" data-fragment-index="1">10ms</span><span class="fragment highlight-current-red" data-fragment-index="2"> * 5(watch대상)</span><span class="fragment highlight-current-red" data-fragment-index="3"> * 5 (scope개수)</span><span class="fragment highlight-current-red" data-fragment-index="4"> * (2~10)</span><span> = <strong class="emphasize">500~2,500 ms</strong></span>
+						</div>
+						<br>
+						<ul>
+							<li  class="fragment" data-fragment-index="1">scope.$watch 등록시, 가급적 <string class="semi-emphasize">watchExpression을 가볍게</string><br> e.g. ng-class 등을 사용할때, function 이 아닌 문자열</li>
+							<li class="fragment" data-fragment-index="2">꼭! 필요한 것만 watch 하여, <string class="semi-emphasize">watch 대상을 줄인다</string></li>
+							<li class="fragment" data-fragment-index="3">꼭! 필요한 것만 scope의 개수를 가급적 줄인다</li>
+							<li class="fragment" data-fragment-index="4">watch의 listener에서는 가급적 데이터를 변경하지 않는다</li>
+						</ul><br><br>
+						<div class="fragment" data-fragment-index="5">
+							<blockquote  >5ms * 4(watch대상) * 4(scope개수) * 2 = <strong class="emphasize">160ms</strong>
+							</blockquote>
+							<p style="font-size:20px; margin-top:20px">Two-Way Data Binding이 아닌, Event Driven 방식을 이용하거나<br>Throttling 기법을 이용하는 것도 좋은 방법</p>
+						</div>
+					</section>
+					<section>
+						<h3>실제로도 계산과 같을까?</h3>
+					</section>
+					<section>
+						<h3>One-Way <strong class="emphasize">VS</strong> Two-Way Data Binding 비교</h3>
+						<img id="vs" src="image/oneVstwo-way.png"/>
+						<ul>
+							<li  class="fragment">실제 측정된 값은 최대 <strong class="semi-emphasize">7배</strong>정도 Two-Way Binding이 느림.</li>
+							<li  id="vs_after" class="fragment"><strong class="emphasize">100개 미만인 경우</strong> One-Way와 Two-Way 둘 다 10ms로 차이가 없음</li>
+						</ul><br><br>
+						<!-- <blockquote  class="fragment" data-fragment-index="5">5ms * 4(watch대상) * 4(scope개수) * 2 = <strong class="emphasize">160ms</strong><br><br>
+						<p style="font-size:30px">Two-Way Data Binding이 아닌, Event Driven 방식을 이용하거나<br>Throttling 기법을 이용하는 것도 좋은 방법</p>
+						</blockquote> -->
+
+					</section>
+				</section>
+				<section>
+					<section data-background="#8c4738">
+						<h2> 적용 사례 2.</h2>
+					</section>
+					<section style="margin-top:-100px">
+						<h3>네이버 북스토어 모바일</h3>
+						<h4><a href='http://m.comic.naver.com/store/comic/contents/contentsDetail.nhn?contentsNo=155363' target="_blank">http://m.comic.naver.com/store</a></h4>
+						<img id="store" src="image/store.png"/>
+						<div id="store_after1" class="fragment" style="display:none"></div>
+						<div id="store_after2" class="fragment" style="display:none"></div>
+					</section>
+					<section>
+						<h3>카카오 토픽 상세 페이지</h3>
+						<h4><a href='http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956' target="_blank">http://topic.kakao.com/</a></h4>
+						<img src="image/kakaotopic.png"/>
+					</section>
+					<section>
+						<h1>Why?</h1>
+						<h3 class="fragment"><strong class="emphasize">HTML Compiler</strong></h3>
+					</section>
+				</section>
+				<section>
+					<h3>HTML Compiler</h3>
+				</section>
+				<section>
+					<h2>감사합니다.</h2>
+					<br>
+					<h3>BY <a href="http://sculove.pe.kr">손찬욱</a> / <a href="https://www.facebook.com/chanuk.son">chanuk.son</a></h3>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../../revealjs/lib/js/head.min.js"></script>
+		<script src="../../revealjs/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			Reveal.addEventListener( 'fragmentshown', function( event ) {
+				var id = event.fragment.getAttribute("id");
+				switch(id) {
+					case "pinpoint_img_after" :
+						document.getElementById("pinpoint_img").src= "image/pinpoint-after.png";
+						break;
+					case "OOOprj_img_after1" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after1.png";
+						break;
+					case "OOOprj_img_after2" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after2.png";
+						break;
+					case "OOOprj_img_after3" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after3.png";
+						break;
+					case "OOOprj_img_after4" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after4.png";
+						break;
+					case "two-way_after" :
+						document.getElementById("two-way").src= "image/two-way-after.png";
+						break;
+					case "when_after" :
+						document.getElementById("when").style.textDecoration = "line-through";
+						break;
+					case "when-detail_after" :
+						document.getElementById("when-detail").style.display = "none";
+						// event.fragment.style.display = "block";
+						break;
+					case "digest_after1" :
+						document.getElementById("digest").src= "image/digest-after1.png";
+						break;
+					case "digest_after2" :
+						document.getElementById("digest").src= "image/digest-after2.png";
+						break;
+					case "digest_after3" :
+						document.getElementById("digest").src= "image/digest-after3.png";
+						break;
+					case "vs_after" :
+						document.getElementById("vs").src= "image/oneVstwo-way-after.png";
+						break;
+					case "store_after1" :
+						document.getElementById("store").src= "image/store-after1.png";
+						break;
+					case "store_after2" :
+						document.getElementById("store").src= "image/store-after2.png";
+						break;
+				}
+			} );
+			Reveal.addEventListener( 'fragmenthidden', function( event ) {
+				var id = event.fragment.getAttribute("id");
+				switch(id) {
+					case "pinpoint_img_after" :
+						document.getElementById("pinpoint_img").src= "image/pinpoint.png";
+						break;
+					case "OOOprj_img_after1" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj.png";
+						break;
+					case "OOOprj_img_after2" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after1.png";
+						break;
+					case "OOOprj_img_after3" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after2.png";
+						break;
+					case "OOOprj_img_after4" :
+						document.getElementById("OOOprj_img").src= "image/OOOPrj-after3.png";
+						break;
+					case "two-way_after" :
+						document.getElementById("two-way").src= "image/two-way.png";
+						break;
+					case "when-detail_after" :
+						setTimeout(function() {
+							document.getElementById("when-detail").style.display = "";
+						},300);
+						// event.fragment.style.display = "none";
+						break;
+					case "digest_after1" :
+						document.getElementById("digest").src= "image/digest.png";
+						break;
+					case "digest_after2" :
+						document.getElementById("digest").src= "image/digest-after1.png";
+						break;
+					case "digest_after3" :
+						document.getElementById("digest").src= "image/digest-after2.png";
+						break;
+					case "vs_after" :
+						document.getElementById("vs").src= "image/oneVstwo-way.png";
+						break;
+					case "store_after1" :
+						document.getElementById("store").src= "image/store.png";
+						break;
+					case "store_after2" :
+						document.getElementById("store").src= "image/store-after1.png";
+						break;
+				}
+			} );
+
+		</script>
+
+	</body>
+</html>

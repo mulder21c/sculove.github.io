@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 
 	<head>
 		<meta charset="utf-8">
@@ -7,19 +7,19 @@
 		<title>FrontEnd 개발자가 수행하는 성능 개선 작업</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="author" content="sculove. 손찬욱">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="../../revealjs/css/reveal.css">
 		<!-- <link rel="stylesheet" href="css/theme/default.css" id="theme"> -->
-		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+		<link rel="stylesheet" href="../../revealjs/css/theme/moon.css" id="theme">
 
 		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="../../revealjs/lib/css/zenburn.css">
 
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
@@ -27,7 +27,7 @@
 				var link = document.createElement( 'link' );
 				link.rel = 'stylesheet';
 				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
+				link.href = '../../revealjs/css/print/pdf.css';
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
@@ -262,8 +262,8 @@ document.getElementById("box").style.opacity = 0;
 					<img src="image/st_rendering.png" style="width:70%">
 					<br>
 					<ul>
-						<li class="fragment">필연적으로 Recalculate Style, Update Layer Tree, Composite Layer는 꼭! 발생</li>
-						<li class="fragment">Update Layer Tree, Composite Layer 의 비용은 Layout과 Paint. 그리고 Layer에 의해 결정되어진다</li>
+						<li class="fragment">필연적으로<br>Recalculate Style, Update Layer Tree, Composite Layer는 꼭! 발생</li>
+						<li class="fragment">Update Layer Tree, Composite Layer 의 비용은 <strong class="semi-emphasize">Layout</strong>과 <strong class="semi-emphasize">Paint</strong>. <br>그리고 <strong class="semi-emphasize">Layer</strong>에 의해 결정되어진다</li>
 					</ul>
 					<br><br>
 					<p class="fragment">
@@ -403,8 +403,8 @@ document.getElementById("box").style.opacity = 0;
 
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+		<script src="../../revealjs/lib/js/head.min.js"></script>
+		<script src="../../revealjs/js/reveal.min.js"></script>
 
 		<script>
 
@@ -425,12 +425,12 @@ document.getElementById("box").style.opacity = 0;
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: '../../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
 
