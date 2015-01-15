@@ -291,10 +291,13 @@
 					<section>
 						<h3>카카오 토픽 상세 페이지</h3>
 						<h4><a href='http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956' target="_blank">http://topic.kakao.com/</a></h4>
-						<!-- <img src="image/kakaotopic.png"/> -->
-						<video width="300px" preload controls>
-							<source src="movie/kakao.mp4" type='video/mp4;' />
-						</video>
+						<div style="width:70%;position:relative;margin:0 auto">
+							<div style="position:absolute; top:0; right:25px">
+							<button onclick="kakaopage.src='http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956'" style="height:25px">reload page</button>
+							</div>
+							<iframe id="kakaopage" src="http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956" width="100%" height="400px">
+							</iframe>
+						</div>
 					</section>
 					<section>
 						<h1>Why?</h1>
@@ -394,10 +397,15 @@
 					<section>
 						<h2>HTML Compiler</h2>
 						<h4>UI를 통한 접근</h4>
-						<video width="300px" preload controls>
-							<source src="movie/kakao.mp4" type='video/mp4;' />
-						</video>
-						<video width="300px" preload controls>
+						<div style="width:100%">
+						<div style="width:300px;position:relative;margin:0 auto;display:inline-block">
+							<div style="position:absolute; top:0; right:25px">
+							<button onclick="kakaopage2.src='http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956'" style="height:25px">reload page</button>
+							</div>
+							<iframe id="kakaopage2" src="http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956" width="100%" height="530px">
+							</iframe>
+						</div>
+						<video width="300px" preload controls style="display:inline-block">
 							<source src="movie/gmail.mp4" type='video/mp4;' />
 						</video>
 					</section>
@@ -415,6 +423,17 @@
 		<script src="../../revealjs/js/reveal.min.js"></script>
 
 		<script>
+			function getFrameDocument(id) {
+				var frm = document.getElementById(id);
+				if (frm == null) return;
+
+				var fDoc = frm.contentWindow || frm.contentDocument;
+				if (fDoc.document) {
+					fDoc = fDoc.document;
+				}
+				return fDoc;
+			}
+
 
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
