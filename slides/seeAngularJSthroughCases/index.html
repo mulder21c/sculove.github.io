@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>사례를 통해 AngularJS 알아보기</title>
+		<title>사례를 통한 AngularJS 알아보기</title>
 
 		<meta name="description" content="Let's see angularJS through cases">
 		<meta name="author" content="sculove. 손찬욱">
@@ -75,9 +75,9 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-transition="linear" data-background-transition="slide">
-					<h3>사례를 통해</h3>
-					<h2>AngularJS 알아보기</h2><br>
-					<h4>"AngularJS 성능 이슈에 대한 이야기"</h4>
+					<h3>사례를 통한</h3>
+					<img src="image/angularjs-for-header-only.svg" style="display:inline; margin:0px;" height="100px"><h2 style="display:inline;vertical-align: super;" > 알아보기</h2><br>
+					<h4 style="margin-top:25px;">"AngularJS 성능 이슈에 대한 이야기"</h4>
 					<br>
 					<p>
 						<small>Created by <a href="http://sculove.pe.kr">손찬욱</a> / <a href="https://www.facebook.com/chanuk.son">chanuk.son</a></small>
@@ -291,7 +291,10 @@
 					<section>
 						<h3>카카오 토픽 상세 페이지</h3>
 						<h4><a href='http://topic.kakao.com/article/18444469733816148650?cluster=1755425553265526956' target="_blank">http://topic.kakao.com/</a></h4>
-						<img src="image/kakaotopic.png"/>
+						<!-- <img src="image/kakaotopic.png"/> -->
+						<video width="300px" preload controls>
+							<source src="movie/kakao.mp4" type='video/mp4;' />
+						</video>
 					</section>
 					<section>
 						<h1>Why?</h1>
@@ -378,9 +381,25 @@
 						<h4>초기 로딩 이슈</h4>
 						<br>
 						<ul>
-							<li>페이지 로딩 도중 초기 DOM이나 Template이 노출되는 경우</li>
-							<li>AngularJS Bootstrap이 완료될 때까지 DOM이 노출되지 않는 경우</li>
+							<li>
+								<div  id="solve" style="color:red; font-weight: bold;">
+									<p style="color:rgb(147, 161, 161)">페이지 로딩 도중 초기 DOM이나 Template이 노출되는 경우</p>
+								</div>
+								<div id="solve_after" class="fragment"><strong class="emphasize">ng-cloak</strong><pre><code> .ng-cloak, .x-ng-cloak { display: none !important; }</code></pre></div>
+							</li>
+							<li class="fragment">AngularJS Bootstrap이 완료될 때까지 DOM이 노출되지 않는 경우
+							<div class="fragment"><strong class="semi-emphasize">UI 문제로 접근해야함</strong></div></li>
 						</ul>
+					</section>
+					<section>
+						<h2>HTML Compiler</h2>
+						<h4>UI를 통한 접근</h4>
+						<video width="300px" preload controls>
+							<source src="movie/kakao.mp4" type='video/mp4;' />
+						</video>
+						<video width="300px" preload controls>
+							<source src="movie/gmail.mp4" type='video/mp4;' />
+						</video>
 					</section>
 				</section>
 				<section>
@@ -479,6 +498,9 @@
 						document.getElementById("templateFromDom").style.display = "none";
 						event.fragment.style.display = "";
 						break;
+					case "solve_after" :
+						document.getElementById("solve").style.textDecoration = "line-through";
+						break;
 				}
 			} );
 			Reveal.addEventListener( 'fragmenthidden', function( event ) {
@@ -502,11 +524,13 @@
 					case "two-way_after" :
 						document.getElementById("two-way").src= "image/two-way.png";
 						break;
+					case "when_after" :
+						document.getElementById("when").style.textDecoration = "";
+						break;
 					case "when-detail_after" :
 						setTimeout(function() {
 							document.getElementById("when-detail").style.display = "";
 						},300);
-						// event.fragment.style.display = "none";
 						break;
 					case "digest_after1" :
 						document.getElementById("digest").src= "image/digest.png";
@@ -537,6 +561,9 @@
 							document.getElementById("domFromServer").style.display = "";
 						},300);
 						// event.fragment.style.display = "none";
+						break;
+					case "solve_after" :
+						document.getElementById("solve").style.textDecoration = "";
 						break;
 				}
 			} );
