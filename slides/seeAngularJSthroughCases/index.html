@@ -198,7 +198,7 @@
 							</ul>
 						</blockquote>
 					</section>
-					<section style="margin-top:-70px">
+					<section style="margin-top:-45px">
 						<h2>Two-Way Data Binding 원리</h2>
 						<h4>확인 방법 (Dirty Checking)</h4>
 						<img id="digest" src="image/digest.png"/>
@@ -232,7 +232,7 @@
 							</blockquote></li>
 						</ul>
 					</section>
-					<section style="margin-top:-70px">
+					<section style="margin-top:-40px">
 						<h3>OOO 프로젝트</h3>
 						<img src="image/prj-after4.png"/>
 						<blockquote style="font-size:30px;"><string class="semi-emphasize">총 수행시간</string> = 각 watch의 watchExpression 수행시간 * n * s * (2~10)
@@ -248,14 +248,13 @@
 						<div class="fragment fade-out" data-fragment-index="5" style="font-size:33px;">
 							<span class="fragment highlight-current-red" data-fragment-index="1">10ms</span><span class="fragment highlight-current-red" data-fragment-index="2"> * 5(watch대상)</span><span class="fragment highlight-current-red" data-fragment-index="3"> * 5 (scope개수)</span><span class="fragment highlight-current-red" data-fragment-index="4"> * (2~10)</span><span> = <strong class="emphasize">500~2,500 ms</strong></span>
 						</div>
-						<br>
-						<ul>
+						<ul style="margin-top:10px">
 							<li  class="fragment" data-fragment-index="1">scope.$watch 등록시, 가급적 <string class="semi-emphasize">watchExpression을 가볍게</string><br> e.g. ng-class 등을 사용할때, function 이 아닌 문자열</li>
 							<li class="fragment" data-fragment-index="2">꼭! 필요한 것만 watch 하여, <string class="semi-emphasize">watch 대상을 줄인다</string></li>
 							<li class="fragment" data-fragment-index="3">꼭! 필요한 것만 scope의 개수를 가급적 줄인다</li>
-							<li class="fragment" data-fragment-index="4">watch의 listener에서는 가급적 데이터를 변경하지 않는다</li>
-						</ul><br><br>
-						<div class="fragment" data-fragment-index="5">
+							<li class="fragment" data-fragment-index="4">watch의 listener에서는 가급적 <strong class="semi-emphasize">watch 대상 데이터</strong>를 변경하지 않는다</li>
+						</ul>
+						<div style="margin-top:20px" class="fragment" data-fragment-index="5">
 							<blockquote  >5ms * 4(watch대상) * 4(scope개수) * 2 = <strong class="emphasize">160ms</strong>
 							</blockquote>
 							<p style="font-size:20px; margin-top:20px">Two-Way Data Binding이 아닌, Event Driven 방식을 이용하거나<br>Throttling 기법을 이용하는 것도 좋은 방법</p>
@@ -281,7 +280,7 @@
 					<section data-background="#8c4738">
 						<h2> 적용 사례 2.</h2>
 					</section>
-					<section style="margin-top:-100px">
+					<section style="margin-top:-20px">
 						<h3>네이버 북스토어 모바일</h3>
 						<h4><a href='http://m.comic.naver.com/store/comic/contents/contentsDetail.nhn?contentsNo=155363' target="_blank">http://m.comic.naver.com/store</a></h4>
 						<img id="store" src="image/store.png"/>
