@@ -466,7 +466,7 @@
 				try {
 					var id = event.fragment.getAttribute("id");
 					var el = document.getElementById(id.substring(0, id.indexOf("_after")));
-					console.log("shown",id,el);
+					// console.log("shown",id,el);
 					switch(id) {
 						case "beforeJquery_after" :
 							el.src= "image/beforeJquery-prototype-jquery.png";
@@ -492,7 +492,7 @@
 				try{
 					var id = event.fragment.getAttribute("id");
 					var el = document.getElementById(id.substring(0, id.indexOf("_after")));
-					console.log("hidden",el);
+					// console.log("hidden",el);
 					switch(id) {
 						case "beforeJquery_after" :
 							el.src= "image/beforeJquery-prototype.png";
