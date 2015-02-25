@@ -6,5 +6,8 @@
 * [사례를 통한 AngularJS 알아보기](http://sculove.github.io/slides/seeAngularJSthroughCases/index.html)  
 'AngularJS 성능 이슈에 대한 이야기'
 
+* [Jindo To jQuery](http://sculove.github.io/slides/jindoTojQuery/index.html)  
+'Jindo To jQuery'
+
 ## Demo
 * [Angular-visible Demo](http://sculove.github.io/demo/angular-visible/lazyLoading.html)
