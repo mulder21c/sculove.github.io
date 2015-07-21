@@ -9,5 +9,8 @@
 * [Jindo To jQuery](http://sculove.github.io/slides/jindoTojQuery/index.html)  
 'Jindo To jQuery'
 
+* [jQuerySF 2015](http://sculove.github.io/slides/jQuerySF/index.html)  
+'jQuerySF 2015'
+
 ## Demo
 * [Angular-visible Demo](http://sculove.github.io/demo/angular-visible/lazyLoading.html)
