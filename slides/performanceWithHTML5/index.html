@@ -1,4 +1,4 @@
-<!doctype html>
+`<!doctype html>
 <html lang="ko">
 
 	<head>
@@ -54,22 +54,13 @@
 .code > button:hover {
 	opacity: 1;
 }
-
-
-         /*   li {
-            	margin-top : 10px !important;
-            	font-size : 0.8em !important;
-            }
-
-
-
-            blockquote {
-            	width : 100% !important;
-            }
-
-            img {
-            	border :0px !important;
-            }*/
+li {
+	margin-top : 10px !important;
+	font-size : 0.8em !important;
+}
+blockquote {
+	width : 90% !important;
+}
 		</style>
 	</head>
 
@@ -180,12 +171,11 @@
 					</section>
 					<section>
 						<h2>Image 제거 (CSS3 Effect)</h2>
-						<br>
 						<ol>
 							<li>gradient, box-shadow</li>
 							<li>border-radius</li>
 							<li>:before</li>
-							<li>:after</li>
+							<li>:after, gradient</li>
 						</ol>
 						<br>
 						<img src="image/snap.jpeg">
@@ -240,11 +230,17 @@
 }
 						</code></pre>
 </div>
-	<p style="clear:both;">1KBytes 이미지</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
+	<p style="clear:both;">1KBytes CSS3 Effect</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
 					</section>
 					<section>
-						<p>gradient, border-radius, text-shadow and box-shadow</p>
-						<iframe width="90%" height="400px" src="http://cubiq.org/dropbox/cssgrad.html"></iframe>
+						<h3>CSS BUTTON</h3>
+						<iframe width="90%" height="500px" src="http://www.bestcssbuttongenerator.com/"></iframe>
+						<br><small><a href="http://www.bestcssbuttongenerator.com/">http://www.bestcssbuttongenerator.com</a></small>
+					</section>
+					<section>
+						<h3>CSS ICON</h3>
+						<iframe width="90%" height="500px" src="http://tympanus.net/Development/IconHoverEffects//"></iframe>
+						<br><small><a href="http://tympanus.net/Development/IconHoverEffects/">http://tympanus.net/Development/IconHoverEffects/</a></small>
 					</section>
 				</section>
 				<section>
@@ -324,7 +320,7 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 				</section>
 				<section>
 					<section>
-						<h2>이미지 크기 줄이기</h2>
+						<h3>이미지 크기 줄이기</h3>
 						<p>이미지의 크기를 결정하는 요인</p>
 						<ul>
 							<li>이미지의 포맷</li>
@@ -332,22 +328,83 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 						</ul>
 					</section>
 					<section>
-						<h2>이미지 포맷</h2>
+						<h3>이미지 포맷</h3>
 						<p>이미지의 크기를 결정하는 요인</p>
-						<ul>
-							<li>이미지의 포맷</li>
-							<li>이미지의 사이즈</li>
-						</ul>
+						<img src="image/imageformat.png">
+						<small><a href="http://goo.gl/cwTZ6h">http://goo.gl/cwTZ6h</a></small><br>
+						<div class="fragment">
+							<ul >
+								<li>PNG : png-8, png-24에 따라 용량 차이가 남.</li>
+								<li>JPEG : 압축률 70~90%에 따라, 용량이 작아짐</li>
+							</ul><br>
+							<small>* 용량이 작은 WebP 포맷은 Chrome, Android 4.1+ 만 지원</small>
+						</div>
+					</section>
+					<section>
+						<h3>이미지 포맷 기준</h3>
+						<img src="image/format-tree.png"><br>
+						<small><a href="http://goo.gl/IeQuI3">http://goo.gl/IeQuI3</a></small><br>
+					</section>
+					<section>
+						<h3>이미지 사이즈</h3>
+						<p>사이즈가 크면 클수록 용량은 배로 증가</p>
+						<blockquote>Pixel 수(width * height) * 표현할 수 있는 컬러 수</blockquote>
+						<img src="image/imagesize.png" style="width:50%">
+						<img src="image/imagesize.png" style="width:25%">
+					</section>
+					<section>
+						<p>고해상도 (레티나) 대응을 위해,</p>
+						<h3>실제 표현하는 사이즈 보다</h3>
+						<h3> <span class="strong">2배 이상</span>으로 사이즈 조정</h3>
 					</section>
 				</section>
 				<section>
 					<section>
-						<h2>랜더링 빠르게 하기</h2>
+						<h3>HTML5를 이용한 반응형 이미지 </h3>
 					</section>
 					<section>
-						<h2>defer, async</h2>
+						<h3>srcset을 이용</h3><pre><code>
+<img srcset="retina-image.jpg 2x" src="image.jpg" alt="an image" />
+</code></pre>
+<p>화면의 pixel ratio에 맞는 이미지를 사용</p>
+					</section>
+					<section>
+						<h3>picture를 이용</h3><pre><code>
+<picture>
+    <source media="orientation:landscape"
+    	srcset="retina-horizontal-image.jpg 2x, horizontal-image.jpg" />
+    <source media="orientation:portrait"
+    	srcset="retina-vertical-image.jpg 2x, vertical-image.jpg" />
+    <img src="image.jpg" alt="an image" />
+</picture>
+</code></pre>
+<p>화면의 회전상태에 따라, 화면의 pixel ratio에 맞는 이미지를 사용</p>
+					</section>
+					<section>
+						<h3>srcset 지원 범위</h3>
+						<img src="image/srcsupport.png">
+					</section>
+					<section>
+						<h3>picture 지원 범위</h3>
+						<img src="image/picturesupport.png">
 					</section>
 				</section>
+				<section>
+					<h2>랜더링 빠르게 하기</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Waterfall chart의 <span class="strong">간격</span> 줄이기</h2>
+						<img src="image/wf-rendering.png" class="fragment"/>
+					</section>
+					<section>
+						<h2>브라우저 랜더링 과정</h2>
+						<img src="image/rendering.png" style="width:90%">
+						<p>TTFB (Time To First Bytes) 이후, <span class="strong">병렬로 랜더링</span>을 한다.</p>
+					</section>
+				</section>
+
+
 				<section>
 					<h2>LocalStorage 이용한 개선 방법</h2>
 					<p>localStorage</h2>
