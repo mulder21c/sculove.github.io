@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ko">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>HTML5를 활용한 성능 개선</title>
+
+		<meta name="description" content="performanceWithHTML5">
+		<meta name="author" content="sculove. 손찬욱">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../revealjs/css/reveal.css">
+		<link rel="stylesheet" href="../../revealjs/css/theme/moon.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../revealjs/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../../revealjs/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-37362821-4', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		<style>
+.strong {
+	color: #FF5E99 !important;
+}
+.semi-strong {
+	color : #268bd2 !important;
+}
+.code > button:hover {
+	opacity: 1;
+}
+
+
+         /*   li {
+            	margin-top : 10px !important;
+            	font-size : 0.8em !important;
+            }
+
+
+
+            blockquote {
+            	width : 100% !important;
+            }
+
+            img {
+            	border :0px !important;
+            }*/
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>HTML5를 활용한<h2>
+					<h2>Front-End 성능 개선</h2>
+					<br>
+					<p>
+						<small>Created by <a href="http://sculove.pe.kr">손찬욱</a> / <a href="https://www.facebook.com/chanuk.son">chanuk.son</a></small>
+					</p>
+				</section>
+				<section>
+					<h2>성능 이란 무엇인가?</h2>
+					<h3>로딩 속도와 인터렉션 속도</h3>
+				</section>
+				<section>
+					<h2>로딩 과정의 이해</h2>
+				</section>
+				<section>
+					<h2>Front End 성능 개선이란?</h2>
+					<div class="fragment">
+						<h3 class="strong">= Waterfall chart를 어떻게 개선할 것인가?</h3>
+						<img src="image/waterfallchart.png">
+					</div>
+				</section>
+				<section>
+					<h2>요청 수 최소화 하기</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Waterfall chart의 <span class="strong">높이</span> 줄이기</h2>
+						<img src="image/wf-height.png" class="fragment"/>
+					</section>
+					<section>
+						<h2>HTTP Request <span class="strong">수</span>를 줄이자</h2>
+					</section>
+					<section>
+						<h2>왜?</h2>
+						<h3><span class="semi-strong">HTTP Request 수</span>가 많으면 느린가?</h3>
+					</section>
+					<section>
+						<h3>NETWORK COST</h3>
+						<p>DNS Lookup, Connection, Server time, Download, ...</p>
+						<img src="image/networkcost.png">
+						<p>3G 접속일 경우, 특히 connection에 대한 비용이 많이 발생함</p>
+					</section>
+					<section>
+						<h3>HTTP 구성에 따른 전송량의 증가</h3>
+						<p>HTTP Header, Cookie</p>
+						<div style="float:left; width:60%">
+							<img src="image/httpheader1.png">
+						</div>
+						<div style="float:left; width:40%">
+							<img src="image/httpheader2.png">
+						</div>
+					</section>
+					<section>
+						<p>DOMAIN 당 연결할 수 있는</p>
+						<h3>CONNECTION 수가 정해져 있음</h3>
+						<div style="float:left; width:60%">
+							<img src="image/domainsharding.png">
+						</div>
+						<div style="float:left; width:40%">
+							<img src="image/domainhost.png">
+							<p><small>Browserscope : <a href="http://goo.gl/ZhFwaF">http://goo.gl/ZhFwaF</a></small></p>
+						</div>
+					</section>
+				</section>
+				<section>
+					<h2>HOW TO?</h2>
+					<ul>
+						<li>자원의 Merge</li>
+						<li>불필요한 자원의 제거</li>
+					</ul>
+				</section>
+				<section>
+					<h2>JS, CSS의 Merge (Demo)</h2>
+					<p>Grunt, gulp와 같은 자동화 툴을 이용한 자동 merge</p>
+				</section>
+				<section>
+					<section>
+						<h2>Image의 Merge (CSS Sprite)</h2>
+						<img src="image/csssprite1.png">
+					</section>
+					<section>
+						<h2>Image의 Merge (CSS Sprite)</h2>
+						<img src="image/csssprite2.png">
+						<p><span class="strong">background-image/position</span>을 이용한 CSS Sprite</p>
+						<pre><code>
+#nav li a { background-image:url("image_nav.gif"); }
+#nav li a.item1 { background-position: 0px 0px; }
+#nav li a.item2 { background-position: -72px 0px; }
+#nav li a.item3 { background-position: -144px 0px; }
+					</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Image 제거 (CSS3 Effect)</h2>
+						<img src="image/csseffect.png">
+						<p>6KBytes 이미지</p>
+					</section>
+					<section>
+						<h2>Image 제거 (CSS3 Effect)</h2>
+						<br>
+						<ol>
+							<li>gradient, box-shadow</li>
+							<li>border-radius</li>
+							<li>:before</li>
+							<li>:after</li>
+						</ol>
+						<br>
+						<img src="image/snap.jpeg">
+					</section>
+					<section>
+						<h2>Image 제거 (CSS3 Effect)</h2>
+<div style="float:left;width:50%;">
+	<iframe width="100%" height="420px" src="http://cdn.tutsplus.com/net/uploads/legacy/1050_icon/demo.html"></iframe>
+</div>
+<div style="float:left; width:50%">
+<pre><code>
+.docIcon {
+        background:#eee;
+        background:-webkit-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
+        border:1px solid #ccc;
+        border-radius:3px 15px 3px 3px;
+        box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
+        display:block;
+        width:40px;
+        height:56px;
+        position:relative;
+        text-indent:-9999em;
+        margin:42px auto;
+}
+.docIcon:before {
+        content:"";
+        display:block;
+        position:absolute;
+        top:0;
+        right:0;
+        width:15px;
+        height:15px;
+        background:#ccc;
+        background:-webkit-linear-gradient(45deg, #fff 0,  #eee 50%, #ccc 100%);
+        box-shadow:rgba(0,0,0,0.05) -1px 1px 1px, inset white 0 0 1px;
+        border-bottom:1px solid #ccc;
+        border-left:1px solid #ccc;
+        border-radius:0 14px 0 0;
+}
+
+.docIcon:after {
+        content:"";
+        display:block;
+        position:absolute;
+        left:0;
+        top:0;
+        width:60%;
+        margin:22px 20% 0;
+        background:#ccc;
+        background:-webkit-linear-gradient(top, #ccc 0, #ccc 20%, #fff 20%, #fff 40%, #ccc 40%, #ccc 60%, #fff 60%, #fff 80%, #ccc 80%, #ccc 100%);
+        height:15px;
+}
+						</code></pre>
+</div>
+	<p style="clear:both;">1KBytes 이미지</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
+					</section>
+					<section>
+						<p>gradient, border-radius, text-shadow and box-shadow</p>
+						<iframe width="90%" height="400px" src="http://cubiq.org/dropbox/cssgrad.html"></iframe>
+					</section>
+				</section>
+				<section>
+					<h2>요청 크기 최소화 하기</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Waterfall chart의 <span class="strong">폭</span> 줄이기</h2>
+						<img src="image/wf-width.png" class="fragment"/>
+					</section>
+					<section>
+						<h2>HTTP Request <span class="strong">양</span>을 줄이자</h2>
+					</section>
+					<section>
+						<h2>HOW TO?</h2>
+						<ul>
+							<li>자원의 크기를 최소화</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Minify와 Obfuscation</h2>
+<pre><code>
+function isHWAccelerable() {
+	var result = false;
+	var agent = this.agent();
+	var osVersion = agent.os.version;
+	var browser = agent.browser.name;
+	var browserVersion = agent.browser.version;
+	var useragent;
+
+	// chrome (less then 25) has a text blur bug.
+	// but samsung sbrowser fix it.
+	if (browser.indexOf("chrome") !== -1) {
+		result = browserVersion >= "25";
+	} else if (/ie|firefox|safari|inapp/.test(browser)) {
+		result = true;
+	} else if (agent.os.name.indexOf("android") !== -1) {
+		useragent = (ua.match(/\(.*\)/) || [null])[0];
+
+		// android 4.1+ blacklist
+		// EK-GN120 : Galaxy Camera, SM-G386F : Galaxy Core LTE
+		// SHW-M420 : Galaxy Nexus , SHW-M200 : NexusS , GT-S7562 : Galaxy S duos
+		result = (osVersion >= "4.1.0" && !/EK-GN120|SM-G386F/.test(useragent)) ||
+			(osVersion >= "4.0.3" &&
+				/SHW-|SHV-|GT-|SCH-|SGH-|SPH-|LG-F160|LG-F100|LG-F180|LG-F200|EK-|IM-A|LG-F240|LG-F260/.test(useragent) && !/SHW-M420|SHW-M200|GT-S7562/.test(useragent));
+	}
+	return resultCache(this, "isHWAccelerable", [result, agent], result);
+}
+</code></pre>
+<p>1,000 Bytes</p>
+					</section>
+					<section>
+						<h2>Minify와 Obfuscation</h2>
+						<div>
+						<p>주석제거, 공백 제거 (687 Bytes)</p>
+<pre><code>
+function isHWAccelerable(){var result=false;var agent=this.agent();var osVersion=agent.os.version;var browser=agent.browser.name;var browserVersion=agent.browser.version;var useragent;if(browser.indexOf("chrome")!==-1){result=browserVersion>="25";}else if(/ie|firefox|safari|inapp/.test(browser)){result=true;}else if(agent.os.name.indexOf("android")!==-1){useragent=(ua.match(/\(.*\)/)||[null])[0];result=(osVersion>="4.1.0"&&!/EK-GN120|SM-G386F/.test(useragent))||(osVersion>="4.0.3"&&/SHW-|SHV-|GT-|SCH-|SGH-|SPH-|LG-F160|LG-F100|LG-F180|LG-F200|EK-|IM-A|LG-F240|LG-F260/.test(useragent)&&!/SHW-M420|SHW-M200|GT-S7562/.test(useragent));}
+return resultCache(this,"isHWAccelerable",[result,agent],result);}
+</code></pre>
+</div>
+
+<div class="fragment">
+<p>변수명 난독화 (491 Bytes)</p>
+<pre><code>
+function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.name,a=s.browser.version;return-1!==i.indexOf("chrome")?r=a>="25":/ie|firefox|safari|inapp/.test(i)?r=!0:-1!==s.os.name.indexOf("android")&&(e=(ua.match(/\(.*\)/)||[null])[0],r=t>="4.1.0"&&!/EK-GN120|SM-G386F/.test(e)||t>="4.0.3"&&/SHW-|SHV-|GT-|SCH-|SGH-|SPH-|LG-F160|LG-F100|LG-F180|LG-F200|EK-|IM-A|LG-F240|LG-F260/.test(e)&&!/SHW-M420|SHW-M200|GT-S7562/.test(e)),resultCache(this,"isHWAccelerable",[r,s],r)}
+</code></pre>
+	</div><br>
+	<h3 class="fragment"><span class="strong">50.9%</span> 감소</h3>
+					</section>
+					<section>
+						<h2>Minify와 Obfuscation (Demo)</h2><br>
+						<p>Grunt, gulp와 같은 자동화 툴을 이용한 </p>
+						<h3>CSS minified와 JS minified,obfuscation</h3>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>이미지 크기 줄이기</h2>
+						<p>이미지의 크기를 결정하는 요인</p>
+						<ul>
+							<li>이미지의 포맷</li>
+							<li>이미지의 사이즈</li>
+						</ul>
+					</section>
+					<section>
+						<h2>이미지 포맷</h2>
+						<p>이미지의 크기를 결정하는 요인</p>
+						<ul>
+							<li>이미지의 포맷</li>
+							<li>이미지의 사이즈</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>랜더링 빠르게 하기</h2>
+					</section>
+					<section>
+						<h2>defer, async</h2>
+					</section>
+				</section>
+				<section>
+					<h2>LocalStorage 이용한 개선 방법</h2>
+					<p>localStorage</h2>
+					<h3>localStorage가 좋은 이유,  캐싱이 밀리지 않음, 빠름</h3>
+				</section>
+				<!-- <section>
+					<div>
+						<h2>The State of JavaScript in 2015</h2>
+						<br>
+						<ul>
+							<li style="font-size:20px">원문 - <a href="http://www.breck-mckye.com/blog/2014/12/the-state-of-javascript-in-2015/?utm_source=javascriptweekly&utm_medium=email" target="_blank">http://www.breck-mckye.com/blog/2014/12/the-state-of-javascript-in-2015/?utm_source=javascriptweekly&utm_medium=email</a></li>
+							<li style="font-size:20px">번역글 - <a href="http://huns.me/development/1562" target="_blank">http://huns.me/development/1562</a></li>
+						</ul>
+					</div>
+				</section> -->
+				<section>
+					<h2>감사합니다.</h2>
+					<br>
+					<h3>BY <a href="http://sculove.pe.kr">손찬욱</a> / <a href="https://www.facebook.com/chanuk.son">chanuk.son</a></h3>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="../../revealjs/lib/js/head.min.js"></script>
+		<script src="../../revealjs/js/reveal.min.js"></script>
+
+		<script>
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+			Reveal.addEventListener( 'fragmentshown', function( event ) {
+				// var id = event.fragment.getAttribute("id");
+				// switch(id) {
+				// 	case "pinpoint_img_after" :
+				// 		document.getElementById("pinpoint_img").src= "image/pinpoint-after.png";
+				// 		break;
+				// 	case "prj_img_after1" :
+				// 		document.getElementById("prj_img").src= "image/prj-after1.png";
+				// 		break;
+				// 	case "prj_img_after2" :
+				// 		document.getElementById("prj_img").src= "image/prj-after2.png";
+				// 		break;
+				// 	case "prj_img_after3" :
+				// 		document.getElementById("prj_img").src= "image/prj-after3.png";
+				// 		break;
+				// 	case "prj_img_after4" :
+				// 		document.getElementById("prj_img").src= "image/prj-after4.png";
+				// 		break;
+				// 	case "two-way_after" :
+				// 		document.getElementById("two-way").src= "image/two-way-after.png";
+				// 		break;
+				// 	case "when_after" :
+				// 		document.getElementById("when").style.textDecoration = "line-through";
+				// 		break;
+				// 	case "when-detail_after" :
+				// 		document.getElementById("when-detail").style.display = "none";
+				// 		event.fragment.style.display = "";
+				// 		break;
+				// 	case "digest_after1" :
+				// 		document.getElementById("digest").src= "image/digest-after1.png";
+				// 		break;
+				// 	case "digest_after2" :
+				// 		document.getElementById("digest").src= "image/digest-after2.png";
+				// 		break;
+				// 	case "digest_after3" :
+				// 		document.getElementById("digest").src= "image/digest-after3.png";
+				// 		break;
+				// 	case "vs_after" :
+				// 		document.getElementById("vs").src= "image/oneVstwo-way-after.png";
+				// 		break;
+				// 	case "store_after1" :
+				// 		document.getElementById("store").src= "image/store-after1.png";
+				// 		break;
+				// 	case "store_after2" :
+				// 		document.getElementById("store").src= "image/store-after2.png";
+				// 		break;
+				// 	case "templateFromDom" :
+				// 		document.getElementById("domFromServer").style.display = "none";
+				// 		document.getElementById("viewFromTemplate").style.display = "none";
+				// 		event.fragment.style.display = "";
+				// 		break;
+				// 	case "viewFromTemplate" :
+				// 		document.getElementById("domFromServer").style.display = "none";
+				// 		document.getElementById("templateFromDom").style.display = "none";
+				// 		event.fragment.style.display = "";
+				// 		break;
+				// 	case "solve_after" :
+				// 		document.getElementById("solve").style.textDecoration = "line-through";
+				// 		break;
+				// }
+			} );
+			Reveal.addEventListener( 'fragmenthidden', function( event ) {
+				// var id = event.fragment.getAttribute("id");
+				// switch(id) {
+				// 	case "pinpoint_img_after" :
+				// 		document.getElementById("pinpoint_img").src= "image/pinpoint.png";
+				// 		break;
+				// 	case "prj_img_after1" :
+				// 		document.getElementById("prj_img").src= "image/prj.png";
+				// 		break;
+				// 	case "prj_img_after2" :
+				// 		document.getElementById("prj_img").src= "image/prj-after1.png";
+				// 		break;
+				// 	case "prj_img_after3" :
+				// 		document.getElementById("prj_img").src= "image/prj-after2.png";
+				// 		break;
+				// 	case "prj_img_after4" :
+				// 		document.getElementById("prj_img").src= "image/prj-after3.png";
+				// 		break;
+				// 	case "two-way_after" :
+				// 		document.getElementById("two-way").src= "image/two-way.png";
+				// 		break;
+				// 	case "when_after" :
+				// 		document.getElementById("when").style.textDecoration = "";
+				// 		break;
+				// 	case "when-detail_after" :
+				// 		setTimeout(function() {
+				// 			document.getElementById("when-detail").style.display = "";
+				// 		},300);
+				// 		break;
+				// 	case "digest_after1" :
+				// 		document.getElementById("digest").src= "image/digest.png";
+				// 		break;
+				// 	case "digest_after2" :
+				// 		document.getElementById("digest").src= "image/digest-after1.png";
+				// 		break;
+				// 	case "digest_after3" :
+				// 		document.getElementById("digest").src= "image/digest-after2.png";
+				// 		break;
+				// 	case "vs_after" :
+				// 		document.getElementById("vs").src= "image/oneVstwo-way.png";
+				// 		break;
+				// 	case "store_after1" :
+				// 		document.getElementById("store").src= "image/store.png";
+				// 		break;
+				// 	case "store_after2" :
+				// 		document.getElementById("store").src= "image/store-after1.png";
+				// 		break;
+				// 	case "viewFromTemplate" :
+				// 		setTimeout(function() {
+				// 			document.getElementById("templateFromDom").style.display = "";
+				// 		},300);
+				// 		// event.fragment.style.display = "none";
+				// 		break;
+				// 	case "templateFromDom" :
+				// 		setTimeout(function() {
+				// 			document.getElementById("domFromServer").style.display = "";
+				// 		},300);
+				// 		// event.fragment.style.display = "none";
+				// 		break;
+				// 	case "solve_after" :
+				// 		document.getElementById("solve").style.textDecoration = "";
+				// 		break;
+				// }
+			} );
+
+		</script>
+
+	</body>
+</html>
