@@ -86,18 +86,43 @@ blockquote {
 					</p>
 				</section>
 				<section>
-					<h2>성능 이란 무엇인가?</h2>
-					<h3>로딩 속도와 인터렉션 속도</h3>
+					<section>
+						<h2>성능 이란 무엇인가?</h2>
+						<p><span class="strong">RAIL</span> performance model</p>
+						<img src="image/rail.png"/>
+						<small>http://developers.google.com <a href="http://goo.gl/axNG6r">http://goo.gl/axNG6r</a></small>
+					</section>
+					<section>
+						<h2>오늘은</h2>
+						<h2><span class="strong">Loading</span>에 대해서만</h2>
+						<h2>이야기합니다</h2>
+					</section>
 				</section>
 				<section>
-					<h2>로딩 과정의 이해</h2>
+					<section>
+						<h2>로딩 과정의 이해</h2>
+						<img src="image/loading.jpg" style="width:90%"/>
+					</section>
+					<section>
+						<h2>Connect / Request / Response</h2>
+						<img src="image/request_response.png">
+						<p>Stalled == Browser waiting</p>
+						<p>TTFB == Server Time</p>
+					</section>
+					<section>
+						<h2>Waterfall Chart</h2>
+						<img src="image/waterfallchart.png">
+					</section>
 				</section>
 				<section>
 					<h2>Front End 성능 개선이란?</h2>
 					<div class="fragment">
-						<h3 class="strong">= Waterfall chart를 어떻게 개선할 것인가?</h3>
+						<h3 class="strong">== Waterfall chart를 어떻게 개선할 것인가?</h3>
 						<img src="image/waterfallchart.png">
 					</div>
+				</section>
+				<section data-background="#403200">
+					<h2>우리가 개선할 페이지는?</h2>
 				</section>
 				<section data-background="#8c4738">
 					<h2>요청 수 최소화 하기</h2>
@@ -148,6 +173,7 @@ blockquote {
 						<li>자원의 Merge</li>
 						<li>불필요한 자원의 제거</li>
 						<li>자원의 재사용</li>
+						<li>초기 로딩 속도에 필요 없는 자원 나중에 로딩</li>
 					</ul>
 				</section>
 				<section>
@@ -178,10 +204,10 @@ blockquote {
 					<section>
 						<h3>IMAGE 제거 (CSS3 Effect)</h3>
 						<img src="image/csseffect.png">
-						<p>6KBytes 이미지</p>
+						<p><span class="strong">6KBytes</span> 이미지</p>
 					</section>
 					<section>
-						<h3>IMAGE 제거 (CSS3 Effect)</h3>
+						<h3>IMAGE 제거 (CSS3 Effect - Demo)</h3>
 						<ol>
 							<li>gradient, box-shadow</li>
 							<li>border-radius</li>
@@ -241,7 +267,7 @@ blockquote {
 }
 	</code></pre>
 </div>
-	<p style="clear:both;">1KBytes CSS3 Effect</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
+	<p style="clear:both;"><span class="strong">1KBytes</span> CSS3 Effect</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
 					</section>
 					<section>
 						<h3>CSS BUTTON</h3>
@@ -257,9 +283,8 @@ blockquote {
 				<section>
 					<section>
 						<h3>LocalStorage 이용한 성능 개선</h3>
-					</section>
-					<section>
-						<h3>LocalStorage</h3>
+						<p>클라이언트의 Database를 이용하여 Request수를 줄인다.</p><br>
+						<h3 class="fragment"><span class="strong">브라우저 캐쉬</span>를 이용하면 안되는가?</h3>
 					</section>
 					<section>
 						<h3>브라우저 캐시는 제한이 있다.</h3>
@@ -268,15 +293,21 @@ blockquote {
 						<small>http://www.guypo.com <a href="goo.gl/tl7bJm">goo.gl/tl7bJm</a></small>
 					</section>
 					<section>
-						<h3>LocalStorage는 페이지 캐싱보다 빠르다</h3>
+						<h3>LocalStorage는 빠르다</h3>
 						<p>Smartphone Browser localStorage is up to <span class="strong">5x</span> Faster than Native Cache</p>
 						<img src="image/localstorage.png"/><br>
 						<small>http://www.mobify.com <a href="http://goo.gl/xqJPR2">http://goo.gl/xqJPR2</a></small>
 					</section>
 					<section>
+						<h3>LocalStorage</h3>
+					</section>
+					<section>
 						<h3>JS,CSS의 LocalStorage를 이용한 캐싱</h3>
 						<p>자주 변경이 되지 않는 파일에 대해서는 localStorage를 이용해 확실하게 캐싱되도록 처리</p>
 					</section>
+				</section>
+				<section data-background="#403200">
+					<h2>얼마나 개선되었나?</h2>
 				</section>
 				<section data-background="#8c4738">
 					<h2>요청 크기 최소화 하기</h2>
@@ -293,6 +324,7 @@ blockquote {
 						<h2>HOW TO?</h2>
 						<ul>
 							<li>자원의 크기를 최소화</li>
+							<li>HTTP Request Header 줄이기</li>
 						</ul>
 					</section>
 				</section>
@@ -350,7 +382,7 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 					<section>
 						<h3>Minify와 Obfuscation (Demo)</h3><br>
 						<p>Grunt, gulp와 같은 자동화 툴을 이용한 </p>
-						<h3>HTML, CSS minified와 JS minified,obfuscation</h3>
+						<p>HTML, CSS minified와 JS minified,obfuscation</p>
 					</section>
 				</section>
 				<section>
@@ -415,6 +447,9 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 	</code></pre>
 <p>화면의 회전상태에 따라, 화면의 pixel ratio에 맞는 이미지를 사용</p>
 					</section>
+				</section>
+				<section data-background="#403200">
+					<h2>얼마나 개선되었나?</h2>
 				</section>
 				<section data-background="#8c4738">
 					<h2>랜더링 빠르게 하기</h2>
@@ -492,14 +527,17 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 					<section>
 						<h3>async와 defer의 적절한 사용</h3>
 <img src="image/scriptsum.jpg" style="width:90%"/><br><br>
-<p>DOM 제어와 관련이 없는 스크립트는 async를 사용</p>
-<p>DOM 제어와 관련이 있는 스크립트는 defer를 사용</p>
+<p>DOM 제어와 관련이 없는 스크립트는 <span class="strong">async</span>를 사용</p>
+<p>DOM 제어와 관련이 있는 스크립트는 <span class="strong">defer</span>를 사용</p>
 					</section>
+				</section>
+				<section data-background="#403200">
+					<h2>얼마나 개선되었나?</h2>
 				</section>
 				<section>
 					<h2>Front End 성능 개선이란?</h2>
 					<div class="fragment">
-						<h3 class="strong">= Waterfall chart를 어떻게 개선할 것인가?</h3>
+						<h3 class="strong">== Waterfall chart를 어떻게 개선할 것인가?</h3>
 						<img src="image/wf-summary.png">
 					</div>
 				</section>
