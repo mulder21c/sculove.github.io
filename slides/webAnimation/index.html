@@ -83,43 +83,115 @@ blockquote {
 					</p>
 				</section>
 				<section>
-					<h2>애니메이션 구현 방법???</h2>
+					<section>
+						<h2>HTML5 이전의 애니메이션</h2>
+						<br>
+						<h3>setTimeout, setInterval</h3>
+					</section>
+					<section>
+						<h3>setTimeout</h3>
+						<pre><code>
+function animate(el, x, y, duration) {
+    var startTime = Date.now();
+    var now, per;
+    // Animation Event Loop
+    (function loop() {
+        now = Date.now();
+        if (now >= startTime + duration) {
+            // 종료 시점
+            el.style.left = x + "px";
+            el.style.top = y + "px";
+            return;
+        }
+        per =  (now - startTime) / duration;
+        // somthing easing...
+        el.style.left = (x * per) + "px";
+        el.style.top = (y * per) + "px";
+        setTimeout(loop, 16);
+    })();
+}</code></pre>
+					</section>
+					<section>
+						<p>느리다</p>
+						<p>구현하기가 복잡하고, 어렵다</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>HTML5 애니메이션 기술</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>구분</th>
+									<th>기술</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>CSS</td>
+									<td>CSS Transition</td>
+								<tr>
+								<tr>
+									<td>CSS</td>
+									<td>CSS Animation</td>
+								<tr>
+								<tr>
+									<td>Javascript</td>
+									<td>requestAnimationFrame</td>
+								<tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h3>빠르다</h3>
+						<p>CSS 는 별도의 thread를 이용하기 때문에 빠르다.</p>
+
+					</section>
+					<section>
+						<h3>빠르다</h3>
+						<p>requestAnimationFrame는 60 fps를 보장한다.</p>
+					</section>
+					<section>
+						<h3>구현하기가 쉽고 간편하다</h3>
+						<p>CSS를 이용하면 간단히 구현할수 있다.</p>
+						<img src="image/transition.png" style="background-color:#fff">
+					</section>
+					<section>
+						<h3>애니메이션 제어가 필요하거나, 복잡한 애니메이션인 경우</h3>
+						<h4 class="fragment">하지만, 애니메이션의 세밀한 제어를 위해서는 javascript를 이용하여 복잡하게 구현해야한다.</h4>
+					</section>
+				</section>
+				<section>
+					<h2>Javascript VS CSS</h2>
+					https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript
+				</section>
+				<section>
+					<h2>Javascript</h2>
+					<ul>
+						<li>setTimeout</li>
+						<li>setInterval</li>
+						<li>requestAnimationFrame</li>
+					</ul>
+					<p>
+				</section>
+				<section>
+					<h2>CSS</h2>
+					<p>브라우저의 '기본 스레드'
 					<ul>
 						<li>setTimeout / setInterval</li>
-						<li>CSS Transition</li>
-						<li>CSS Keyframe animation</li>
 						<li>requestAnimationFrame</li>
-						<li>Web Animation</li>
 					</ul>
+					<p>
 				</section>
 				<section>
 					<h2>웹 애니메이션 구현 방법은 왜 이렇게 많은가?</h2>
+					http://cwdoh.com/html5/2014/08/18/chrome-enchanted-notable-html5-specs-in-2014/
 				</section>
 				<section>
 					<h3>다들.... 장단점이 있다.</h3>
 					<h3 class="fragment">실상은 먼가 부족하다</h3>
 				</section>
-				<section>
-					<h3>setTimeout</h3>
-					<pre><code>
-function animate(el, x, y, duration) {
-	var startTime = Date.now();
-	var now, per;
-	(function loop() {
-		now = Date.now();
-		if (now >= startTime + duration) {
-			el.style.left = x + "px";
-			el.style.top = y + "px";
-			return;
-		}
-		per =  (now - startTime) / duration;
-		el.style.left = (x * per) + "px";
-		el.style.top = (y * per) + "px";
-		setTimeout(loop, 16);
-	})();
-}
-					</code></pre>
-				</section>
+
 				<section>
 					<h3>CSS Transition</h3>
 				</section>
@@ -169,8 +241,6 @@ function animate(el, x, y, duration) {
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
@@ -178,6 +248,8 @@ function animate(el, x, y, duration) {
 					{ src: '../../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: '../../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					// https://github.com/iamvdo/Reveal-liveCoding
+					{ src: '../../revealjs/plugin/live-coding/live-coding.js', async: true, condition: function() { return !!document.body.classList; }},
 					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]

@@ -1,3 +1,8 @@
+http://cwdoh.com/html5/2014/08/18/chrome-enchanted-notable-html5-specs-in-2014/
+https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-javascript
+http://beautifulcss.com/archives/2026
+
+
 h1. Web Animations API
 
 {toc:minLevel=2}
