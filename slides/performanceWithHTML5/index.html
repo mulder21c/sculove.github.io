@@ -438,19 +438,19 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 					</section>
 					<section>
 						<h3>srcset을 이용</h3><pre><code>
-	<img srcset="retina-image.jpg 2x" src="image.jpg" alt="an image" />
+	&lt;img srcset="retina-image.jpg 2x" src="image.jpg" alt="an image" /&gt;
 	</code></pre>
 <p>화면의 pixel ratio에 맞는 이미지를 사용</p>
 					</section>
 					<section>
 						<h3>picture를 이용</h3><pre><code>
-<picture>
-    <source media="orientation:landscape"
-    	srcset="retina-horizontal-image.jpg 2x, horizontal-image.jpg" />
-    <source media="orientation:portrait"
-    	srcset="retina-vertical-image.jpg 2x, vertical-image.jpg" />
-    <img src="image.jpg" alt="an image" />
-</picture>
+&lt;picture&gt;
+    &lt;source media="orientation:landscape"
+    	srcset="retina-horizontal-image.jpg 2x, horizontal-image.jpg" /&gt;
+    &lt;source media="orientation:portrait"
+    	srcset="retina-vertical-image.jpg 2x, vertical-image.jpg" /&gt;
+    &lt;img src="image.jpg" alt="an image" /&gt;
+&lt;/picture&gt;
 	</code></pre>
 <p>화면의 회전상태에 따라, 화면의 pixel ratio에 맞는 이미지를 사용</p>
 					</section>
@@ -517,8 +517,8 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 						<h3>async를 이용</h3>
 <p>스크립트를 실행할 때만, HTML 파싱이 중단</p>
 						<pre><code>
-	<script async src="js.js"></script>
-	<script async> // script codes </script>
+	&lt;script async src="js.js"&gt;&lt;/script&gt;
+	&lt;script async&gt; // script codes &lt;/script&gt;
 	</code></pre>
 <img src="image/scriptasync.png" style="width:90%"/>
 					</section>
@@ -526,8 +526,8 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 						<h3>defer를 이용</h3>
 <p>HTML 파싱이 완료된 이후에, 스크립트를 실행</p>
 						<pre><code>
-	<script defer src="js.js"></script>
-	<script defer> // script codes </script>
+	&lt;script defer src="js.js"&gt;&lt;/script&gt;
+	&lt;script defer&gt; // script codes &lt;/script&gt;
 	</code></pre>
 <img src="image/scriptdefer.png" style="width:90%"/>
 					</section>

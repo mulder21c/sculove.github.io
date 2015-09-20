@@ -215,19 +215,23 @@ div.exampletransition:hover div.transition {
 						<img src="image/CSS-SVG-Web-Animations.png" style="background-color: #fff"/>
 					</section>
 					<section>
-						<h3>Web Animation API</h3>
+						<h2>Web Animation API</h2>
 						<p>기존 애니메이션 모델들에 대해 동기화된 <span class="strong">공용 Javascript API</span>를 제공</p>
 						<p>기존 애니메이션 규격에서 처리하기 어려운 부분들을 보완</p>
 					</section>
 				</section>
 				<section>
-					<h3>Web Animation API 주요 기능</h3>
+					<h2>Web Animation API 주요 기능</h2>
 					<ol>
 						<li>애니메이션의 재생방법의 제어</li>
 						<li>애니메이션의 동시적 수행의 조합</li>
 						<li>애니메이션의 순차적 수행의 조합</li>
 						<li>SVG 패스를 이용한 애니메이션 구현</li>
 					</ol>
+				</section>
+				<section>
+					<h2>Animation Basic</h2>
+					<p>Web Animation API Spec-1</p>
 				</section>
 				<section>
 					<section>
@@ -266,49 +270,45 @@ var player = document.getElementById("box").animate([
 });
 						</code></pre>
 					</section>
-				</section>
-				<section>
-					<h3>Animation 객체</h3>
-<small><a href="http://www.w3.org/TR/web-animations/#the-animation-interface">http://www.w3.org/TR/web-animations/#the-animation-interface</a></small>
-					<pre><code>
-[Constructor (optional AnimationEffectReadOnly? effect = null,
-              optional AnimationTimeline? timeline = null)]
-interface Animation {
-             attribute AnimationEffectReadOnly effect;
-             attribute AnimationTimeline timeline;
-             attribute double startTime;
-             attribute double currentTime;
-             attribute double playbackRate;
-    readonly attribute AnimationPlayState playState;
-    readonly attribute Promise Animation ready;
-    readonly attribute Promise Animation finished;
-    void cancel ();
-    void finish ();
-    void play ();
-    void pause ();
-    void reverse ();
-};
-</code></pre>
-				</section>
-				<section>
-					<h3>Animation 객체 (Demo)</h3>
-				</section>
-				<section>
-					<h3>이벤트</h3>
-				</section>
-				<section>
-					<h3>이벤트 (Demo)</h3>
-				</section>
-				<section>
-					<h3>GroupEffect 와 SequenceEffect 객체</h3>
-				</section>
-				<section>
-					<h3>GroupEffect 와 SequenceEffect (Demo)</h3>
-				</section>
-				<section>
-					<h3>Timeline 객체</h3>
-<small><a href="http://www.w3.org/TR/web-animations/#animationtimeline">http://www.w3.org/TR/web-animations/#animationtimeline</a></small>
-					<pre><code>
+					<section>
+						<h3>Animation 객체</h3>
+	<small><a href="http://www.w3.org/TR/web-animations/#the-animation-interface">http://www.w3.org/TR/web-animations/#the-animation-interface</a></small>
+						<pre><code>
+	[Constructor (optional AnimationEffectReadOnly? effect = null,
+	              optional AnimationTimeline? timeline = null)]
+	interface Animation {
+	             attribute AnimationEffectReadOnly effect;
+	             attribute AnimationTimeline timeline;
+	             attribute double startTime;
+	             attribute double currentTime;
+	             attribute double playbackRate;
+	    readonly attribute AnimationPlayState playState;
+	    readonly attribute Promise Animation ready;
+	    readonly attribute Promise Animation finished;
+	    void cancel ();
+	    void finish ();
+	    void play ();
+	    void pause ();
+	    void reverse ();
+	};
+
+	enum AnimationPlayState { "idle", "pending", "running", "paused", "finished" };
+	</code></pre>
+					</section>
+					<section>
+						<h3>Animation 객체 (Demo)</h3>
+					</section>
+					<section>
+						<h3>Promise</h3>
+						<p>Web Animation은 ready와 finished promise를 지원한다.</p>
+					</section>
+					<section>
+						<h3>Promise (Demo)</h3>
+					</section>
+					<section>
+						<h3>Timeline 객체</h3>
+						<small><a href="http://www.w3.org/TR/web-animations/#animationtimeline">http://www.w3.org/TR/web-animations/#animationtimeline</a></small>
+						<pre><code>
 interface AnimationTimeline {
     readonly attribute double currentTime;
     sequence Animation getAnimations();
@@ -317,16 +317,97 @@ interface AnimationTimeline {
 [Constructor (DOMHighResTimeStamp originTime)]
 interface DocumentTimeline : AnimationTimeline {
 };
-</code></pre>
+						</code></pre>
+					</section>
+					<section>
+						<h3>Timeline 객체 (Demo)</h3>
+					</section>
 				</section>
 				<section>
-					<h3>Timeline 객체 (Demo)</h3>
+						<h2>Multiple Animation</h2>
+						<p>Web Animation API Spec-2</p>
 				</section>
 				<section>
-					<h3>Motion Path</h3>
+					<section>
+						<h2>Multiple Animation</h2>
+						<p>다수 엘리먼트의 애니메이션을 제어</p>
+						<iframe src="http://codepen.io/danwilson/embed/PqxvJo?height=268&amp;theme-id=0&amp;slug-hash=PqxvJo&amp;default-tab=result&amp;user=danwilson" scrolling="no" frameborder="0" height="268" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe undefined" style="width: 100%; overflow: hidden;"></iframe>
+					</section>
+					<section>
+						<h3>KeyframeEffects</h3>
+						<p>Element.animation과 유사하나, 선언시 바로 실행되지 않는다.</p>
+						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
+						<pre style="width:65%;float:right;margin:0"><code>
+var effect = new KeyframeEffect(document.getElementById("box"),
+  [
+    { opacity: 1 },
+    { opacity: 0 }
+  ], {
+    duration: 1000,
+    fill: 'both'
+  });
+document.timeline.play(effect);
+						</code></pre>
+					</section>
+					<section>
+						<h3>GroupEffects</h3>
+						<p>Group 단위로 애니메이션을 제어할수 있다.</p>
+						<p>Keyframe/Group/SequenceEffect를 포함할 수 있다.</p>
+						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
+						<pre style="width:65%;float:right;margin:0"><code>
+var kEffects = [
+	new KeyframeEffect(elem, keyframes, timings),
+	new KeyframeEffect(elem2, keyframes, timings),
+	new KeyframeEffect(elem2, keyframes, timings)
+];
+var group = new GroupEffect(kEffects);
+document.timeline.play(group);
+						</code></pre>
+					</section>
+					<section>
+						<h3>SequenceEffect</h3>
+						<p>순차적 애니메이션의 조합</p>
+						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
+						<pre style="width:65%;float:right;margin:0"><code>
+var kEffects = [
+	new KeyframeEffect(elem, keyframes, timings),
+	new KeyframeEffect(elem2, keyframes, timings),
+	new KeyframeEffect(elem2, keyframes, timings)
+];
+var sequence = new SequenceEffect(kEffects);
+document.timeline.play(sequence);
+						</code></pre>
+					</section>
+					<section>
+						<h3>GroupEffects과 SequenceEffect (Demo)</h3>
+					</section>
 				</section>
 				<section>
-					<h3>Motion Path (Demo)</h3>
+					<h2>Motion Path</h2>
+					<p>Motion path를 따라가는 animation</p>
+					<iframe  src="http://codepen.io/danwilson/embed/MwLmby?height=145&amp;theme-id=0&amp;slug-hash=MwLmby&amp;default-tab=result&amp;user=danwilson" scrolling="no" frameborder="0" height="145" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe undefined" style="width: 100%; overflow: hidden;"></iframe>
+				</section>
+				<section>
+					<section>
+						<h3>motion-path</h3>
+						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
+						<pre style="width:65%;float:right;margin:0"><code>
+#motioner {
+  motion-path: path("M200 200 S 200.5 200.1 348.7 184.4z");
+}
+						</code></pre>
+					</section>
+					<section>
+						<h3>motion-offset</h3>
+						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
+						<pre style="width:65%;float:right;margin:0"><code>
+var m = document.getElementById('motioner');
+m.animate([
+  { motionOffset: 0 },
+  { motionOffset: '100%' }
+], 1000);
+						</code></pre>
+					</section>
 				</section>
 				<section>
 					<h3>브라우저 지원 범위</h3>
@@ -336,6 +417,9 @@ interface DocumentTimeline : AnimationTimeline {
 				<section>
 					<h3>web-animations-js polifil</h3>
 					<p>https://github.com/web-animations/web-animations-js</p>
+				</section>
+				<section>
+					<h2>Web Animation API의 미래</h2>
 				</section>
 				<section>
 					<h2>감사합니다.</h2>
@@ -371,6 +455,7 @@ interface DocumentTimeline : AnimationTimeline {
 					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					// https://github.com/iamvdo/Reveal-liveCoding
 					{ src: '../../revealjs/plugin/live-coding/live-coding.js', async: true, condition: function() { return !!document.body.classList; }},
+					{ src: '../../revealjs/plugin/code-focus/code-focus.js', async: true, condition: function() { return !!document.body.classList; }},
 					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]

@@ -30,8 +30,9 @@ button {
     <div id="box" class="box"></div>
 </div>
 <script>
+ var player;
 document.getElementById("run").addEventListener("click", function(e) {
-    var player = document.getElementById("box").animate([
+    player = document.getElementById("box").animate([
         { transform: 'scale(1)', opacity: 1},
         { transform: 'scale(.5)', opacity: .5},
         { transform: 'scale(.667)', opacity: .667},
