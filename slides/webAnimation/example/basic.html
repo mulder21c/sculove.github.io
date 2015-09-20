@@ -38,6 +38,16 @@ document.getElementById("run").addEventListener("click", function(e) {
         { transform: 'scale(.667)', opacity: .667},
         { transform: 'scale(.6)', opacity: .6}
     ], 3000);
+    player.ready.then(function(e) {
+        console.log("ready", e);
+    }, function(e) {
+        console.log("ready fail",e);
+    });
+    player.finished.then(function(e) {
+        console.log("finished", e);
+    }, function(e) {
+        console.log("finished fail",e);
+    })
 });
 </script>
 </body>
