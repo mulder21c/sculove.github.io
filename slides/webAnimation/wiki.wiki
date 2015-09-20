@@ -3,6 +3,64 @@ https://developers.google.com/web/fundamentals/look-and-feel/animations/css-vs-j
 http://beautifulcss.com/archives/2026
 
 
+interface AnimationEffectTiming : AnimationEffectTimingReadOnly {
+    inherit attribute double                             delay;
+    inherit attribute double                             endDelay;
+    inherit attribute FillMode                           fill;
+    inherit attribute double                             iterationStart;
+    inherit attribute unrestricted double                iterations;
+    inherit attribute (unrestricted double or DOMString) duration;
+    inherit attribute PlaybackDirection                  direction;
+    inherit attribute DOMString                          easing;
+};
+
+                    AnimationPlayer
+                    Element.animate(an array of KeyframeEffects, AnimationEffectTimingProperties options);
+
+                    @CSS Animation @keyframe
+                    animation-property
+
+                    // Timelines
+                    AnimationPlayer.playState
+                    AnimationPlayer.playBackRate (read/write)
+                    AnimationPlayer.currentTime (read/write)
+                    AnimationPlayer.finish()
+                    AnimationPlayer.play()
+                    AnimationPlayer.reverse()   // currentTime ==> 0이 마지막
+
+                    AnimationEvent
+                    AnimationPlayer.onfinish
+                    AnimationPlayer.oncancel
+
+                    // Multiple (FF Nightly만 지원)
+                    //Get all the AnimationPlayers
+                    var players = document.timeline.getAnimations();
+
+                    // group and sequence animations
+                    KeyframeEffect 단일 (크롬 안됨)
+                    GroupEffect 그룹 (크롬 안됨)
+                    var groupEffectA = new GroupEffect(keyframeEffects);
+                    var anim = document.timeline.play(groupEffectA);
+                    SequenceEffect (크롬 안됨)
+                    var sequence = new SequenceEffect(kEffects);
+                    document.timeline.play(sequence);
+
+
+                    Animation (크롬 안됨)
+
+
+                    Motion Path
+
+
+
+                    애니메이션 컨트롤 AnimationPlayer, Timeline
+                    Multiple
+                    GroupEffects, SequenceEffects
+                    * 애니메이션의 순차적, 그리고 동시적인 수행의 조합
+                    * 애니메이션의 재생 방법(시작위치, 반복, 재생방향 등) 설정과 재생
+                    * SVG 패스를 따라 이동하는 애니메이션 구현
+
+
 h1. Web Animations API
 
 {toc:minLevel=2}

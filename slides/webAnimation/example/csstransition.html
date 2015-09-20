@@ -13,18 +13,18 @@
 	border-radius:5px;
 	width : 100px;
 	height : 100px;
-	background-color: #439230;
+	background-color: #7018ff;
 	position:absolute;
 	left : 0px;
 	top : 0px;
 	transform:translate3d(0,0,0);
-	transition: left,top 500ms;
+	transition : transform 3s linear;
 }
 button {
 	margin:10px 0;
 }
 .move {
-	transition :
+	transform : translateX(300px);
 }
 </style>
 </head>
@@ -37,6 +37,7 @@ button {
 var el=document.getElementById("box");
 document.getElementById("run").addEventListener("click", function(e) {
 	el.classList.add("move");
+});
 </script>
 </body>
 </html>

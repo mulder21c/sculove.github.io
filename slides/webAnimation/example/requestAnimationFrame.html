@@ -13,7 +13,7 @@
 	border-radius:5px;
 	width : 100px;
 	height : 100px;
-	background-color: #439230;
+	background-color: #599230;
 	position:absolute;
 	left : 0px;
 	top : 0px;
@@ -36,13 +36,11 @@ function animate(el, x, y, duration) {
 	(function loop() {
 		now = Date.now();
 		if (now >= startTime + duration) {
-			el.style.left = x + "px";
-			el.style.top = y + "px";
+			el.style.transform = "translate3d(" + x + "px," + y + "px,0)";
 			return;
 		}
 		per =  (now - startTime) / duration;
-		el.style.left = (x * per) + "px";
-		el.style.top = (y * per) + "px";
+		el.style.transform = "translate3d(" + (x * per)  + "px," +  (y * per)  + "px,0)";
 		requestAnimationFrame(loop);
 	})();
 }
