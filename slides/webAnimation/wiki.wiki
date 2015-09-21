@@ -5,6 +5,7 @@ https://developers.google.com/web/updates/2014/12/web-animation-playback?hl=en
 http://www.tiki-toki.com/timeline/entry/212780/history-of-animation/#vars!date=2010-01-20_14:40:22!
 https://www.polymer-project.org/0.5/platform/web-animations.html
 http://danielcwilson.com/blog/2015/09/animations-part-4/
+https://developer.mozilla.org/ko/docs/Web/CSS/Using_CSS_animations
 
 
 interface AnimationEffectTiming : AnimationEffectTimingReadOnly {

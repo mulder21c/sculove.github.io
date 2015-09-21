@@ -42,6 +42,7 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+		<script src="../../revealjs/lib/js/jquery-1.11.3.js"></script>
 		<style>
 .strong {
 	color: #FF5E99 !important;
@@ -66,26 +67,8 @@ blockquote {
 	width : 95% !important;
 	border-radius: 5px;
 }
-
-div.exampletransition {
-width: 500px;
-height: 60px;
-margin: 20px 0;
-}
-div.exampletransition div.transition {
-width: 50px;
-height: 50px;
-background-color: #fff;
-padding: 10px;
-border-radius: 10px;
-margin-left: 150px;
-transition: margin-left 1s linear, background-color 2s ease 1s;
-}
-div.exampletransition:hover div.transition {
-margin-left: 700px;
-background-color: green;
-}
 		</style>
+		<link rel="stylesheet" href="live-code/example.css">
 	</head>
 
 	<body>
@@ -195,12 +178,75 @@ div.exampletransition:hover div.transition {
 					</section>
 					<section>
 						<h3>제어할수 있다.</h3>
-						<p>CSS Animation을 이용하면 애니메이션 진행상태를 제어할수 있다.</p>
+						<p>애니메이션 <span class="strong">중간 상태</span>를 지정할 수 있다.</p>
+<div class="exampleanimation">
+	<div class="ani"></div>
+</div>
+<pre><code data-trim>
+@keyframes slidein {
+  0% {
+    margin-left:100%;
+    width:300%;
+  }
+  75% {
+    font-size:300%;
+    margin-left:25%;
+    width:150%;
+  }
+  100% {
+    margin-left:0%;
+    width:100%;
+  }
+}
+
+.target {
+	animation-delay : 0;
+	animation-direction : normal; //normal, reverse, alternate, alternate-reverse
+	animation-duration : 3s;
+	animation-iteration-count : infinite;
+	animation-name : slidein;
+	animation-play-state :  running; // paused, running
+	animation-timing-function : linear;
+	animation-fill-mode : none; // none, forwards, backwards, both
+}
+</code></pre>
+					</section>
+					<section>
+						<h3>제어할수 있다.</h3>
+						<p>애니메이션 <span class="strong">진행상태</span>를 제어할수 있다.</p>
+						<p> <span class="semi-strong">animation(start/end/iteration)</span> 이벤트를 제공</p>
+<pre><code>
+var e = document.getElementById("watchme");
+// attach event
+e.addEventListener("animationstart", listener, false);
+e.addEventListener("animationend", listener, false);
+e.addEventListener("animationiteration", listener, false);
+
+// apply css animation
+e.className = "slidein";
+
+// event handler
+function listener(e) {
+  var l = document.createElement("li");
+  switch(e.type) {
+    case "animationstart":
+      l.innerHTML = "Started: elapsed time is " + e.elapsedTime;
+      break;
+    case "animationend":
+      l.innerHTML = "Ended: elapsed time is " + e.elapsedTime;
+      break;
+    case "animationiteration":
+      l.innerHTML = "New loop started at time " + e.elapsedTime;
+      break;
+  }
+  document.getElementById("output").appendChild(l);
+}
+</code></pre>
 					</section>
 					<section>
 						<h3>하지만,</h3>
 						<h3>HTML5 애니메이션 기술들을 </h3>
-						<h3>효과적으로 쉽게 제어하기는 어렵다.</h3>
+						<h3>효과적으로 쉽게  <span class="strong">제어</span>하기는 어렵다.</h3>
 					</section>
 				</section>
 				<section>
@@ -215,17 +261,17 @@ div.exampletransition:hover div.transition {
 						<img src="image/CSS-SVG-Web-Animations.png" style="background-color: #fff"/>
 					</section>
 					<section>
-						<h2>Web Animation API</h2>
-						<p>기존 애니메이션 모델들에 대해 동기화된 <span class="strong">공용 Javascript API</span>를 제공</p>
+						<h2>Web Animation API</h2><br>
+						<p>기존 애니메이션 모델들에 동기화된 <span class="strong">공용 Javascript API</span> 제공</p>
 						<p>기존 애니메이션 규격에서 처리하기 어려운 부분들을 보완</p>
 					</section>
 				</section>
 				<section>
 					<h2>Web Animation API 주요 기능</h2>
 					<ol>
-						<li>애니메이션의 재생방법의 제어</li>
-						<li>애니메이션의 동시적 수행의 조합</li>
-						<li>애니메이션의 순차적 수행의 조합</li>
+						<li>애니메이션의 <span class="semi-strong">재생방법의 제어</span></li>
+						<li>애니메이션의 <span class="semi-strong">동시적</span> 수행의 조합</li>
+						<li>애니메이션의 <span class="semi-strong">순차적</span> 수행의 조합</li>
 						<li>SVG 패스를 이용한 애니메이션 구현</li>
 					</ol>
 				</section>
@@ -237,9 +283,11 @@ div.exampletransition:hover div.transition {
 					<section>
 						<h3>Element.animate()</h3>
 						<blockquote>Animation = Element.animate(Keyframes, duration)</blockquote>
-						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
-						<pre style="width:65%;float:right;margin:0"><code>
-var player = document.getElementById("box").animate([
+						<div class="playground">
+						    <div id="code1" class="box"></div>
+						</div>
+						<pre style="width:80%;float:right;margin:0"><code contenteditable>
+var player = document.getElementById("code1").animate([
 	{ transform: 'scale(1)', opacity: 1},
 	{ transform: 'scale(.5)', opacity: .5},
 	{ transform: 'scale(.667)', opacity: .667},
@@ -251,22 +299,24 @@ var player = document.getElementById("box").animate([
 						<h3>Element.animate()</h3>
 						<blockquote>Animation=Element.animate(Keyframes, <span class="semi-strong">AnimationEffectTiming</span>)</blockquote>
 						<p><span class="semi-strong">offset</span>을 이용하여 animation의 중간 단계를 지정할수 있다.</p>
-						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
-						<pre style="width:65%;float:right;margin:0"><code>
-var player = document.getElementById("box").animate([
+						<div class="playground">
+						    <div id="code2" class="box"></div>
+						</div>
+						<pre style="width:80%;float:right;margin:0"><code contenteditable>
+var player = document.getElementById("code2").animate([
 	{ offset: 0, transform: 'scale(1)', opacity: 1 },
-	{ offset: .3. transform: 'scale(.5)', opacity: .5 },
-	{ offset: .7875, transform: 'scale(.667)', opacity: .667 },
-	{ offset: 1, transform: 'scale(.6)', opacity: .6 }
+	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
+	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
+	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
 ], {
 	duration: 700, //milliseconds
 	easing: 'ease-in-out', //'linear', a bezier curve, etc.
 	delay: 10, //milliseconds
 	endDelay: 0, //milliseconds
-	iterationStart : 0, //
+    iterationStart : 0, //
 	iterations: Infinity, //or a number
-	direction: 'alternate', //'normal', 'reverse', etc.
-	fill: 'forwards' //'backwards', 'both', 'none', 'auto'
+	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
+	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
 });
 						</code></pre>
 					</section>
@@ -274,41 +324,124 @@ var player = document.getElementById("box").animate([
 						<h3>Animation 객체</h3>
 	<small><a href="http://www.w3.org/TR/web-animations/#the-animation-interface">http://www.w3.org/TR/web-animations/#the-animation-interface</a></small>
 						<pre><code>
-	[Constructor (optional AnimationEffectReadOnly? effect = null,
-	              optional AnimationTimeline? timeline = null)]
-	interface Animation {
-	             attribute AnimationEffectReadOnly effect;
-	             attribute AnimationTimeline timeline;
-	             attribute double startTime;
-	             attribute double currentTime;
-	             attribute double playbackRate;
-	    readonly attribute AnimationPlayState playState;
-	    readonly attribute Promise Animation ready;
-	    readonly attribute Promise Animation finished;
-	    void cancel ();
-	    void finish ();
-	    void play ();
-	    void pause ();
-	    void reverse ();
-	};
+interface Animation {
+             attribute AnimationEffectReadOnly effect;
+             attribute AnimationTimeline timeline;
+             attribute double startTime;
+             attribute double currentTime;
+             attribute double playbackRate;
+    readonly attribute AnimationPlayState playState;
+    readonly attribute Promise Animation ready;
+    readonly attribute Promise Animation finished;
+    void cancel ();
+    void finish ();
+    void play ();
+    void pause ();
+    void reverse ();
+};
 
-	enum AnimationPlayState { "idle", "pending", "running", "paused", "finished" };
+enum AnimationPlayState { "idle", "pending", "running", "paused", "finished" };
 	</code></pre>
 					</section>
 					<section>
-						<h3>Animation 객체 (Demo)</h3>
+						<h3>Animation 객체</h3>
+						<p>Animation <span class="strong">동작상태</span>를 조절할수 있다.</p>
+						<div class="playground">
+						    <div id="code3" class="box" style="left:25px"></div>
+						    <div style="height: 200px;float: left;width: 200px;margin-top: 170px;">
+						    	<button class="play" onclick="player.play();">player.play()</button>
+						    	<button class="pause" onclick="player.pause();">player.pause()</button>
+						    	<button class="cancel" onclick="player.cancel();">player.cancel()</button>
+						    	<button class="finish" onclick="player.finish();">player.finish()</button>
+						    	<button class="finish" onclick="document.getElementById('code3').innerHTML = player.playState;">player.playState</button>
+						    	<label style="font-size:0.5em">player.playbackRate</label><input id="pbr" type="range" min="0" max="10" step="0.1" value="1" onchange="document.getElementById('inval').innerHTML = player.playbackRate = document.getElementById('pbr').value; "><div id="inval" style="font-size:0.5em">1</div>
+
+						    </div>
+						</div>
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>
+player = document.getElementById("code3").animate([
+	{ offset: 0, transform: 'scale(1)', opacity: 1 },
+	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
+	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
+	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
+], {
+	duration: 1000, //milliseconds
+	easing: 'ease-in-out', //'linear', a bezier curve, etc.
+	delay: 10, //milliseconds
+	endDelay: 0, //milliseconds
+    iterationStart : 0, //
+	iterations: 1000, //or a number
+	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
+	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+});</code></pre>
 					</section>
 					<section>
 						<h3>Promise</h3>
-						<p>Web Animation은 ready와 finished Promise를 지원한다.</p>
-						<p>ready는 animation이 시작할때 발생한다</p>
-						<p>finished는 animation이 종료될때 발샌한다</p>
-						Promise.prototype.then(onFulfilled, onRejected)
-						https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+						<small><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then">https://developer.mozilla.org</a></small>
+						<p>Web Animation은 <span class="strong">ready</span>와 <span class="strong">finished</span> Promise를 지원한다.</p>
+						<pre><code>Promise.prototype.then(onFulfilled, onRejected)</code></pre>
+						<pre><code>promise.then(function(value) {
+    // 성공인 경우
+}, function(reason) {
+    // 실패인 경우
+});</code></pre>
 					</section>
 					<section>
-						<h3>Promise (Demo)</h3>
+						<h3>Promise</h3>
+						<div class="playground">
+						    <div id="code4" class="box" style="left:25px"></div>
+						    <div style="height: 200px;float: left;width: 200px;margin-top: 170px;">
+						    	<button class="cancel" onclick="player.cancel();">player.cancel()</button>
+						    	<button class="finish" onclick="player.finish();">player.finish()</button>
+						    	<div id="mcode4" class="message"></div>
+						    </div>
+						</div>
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>
+player = document.getElementById("code4").animate([
+	{ offset: 0, transform: 'scale(1)', opacity: 1 },
+	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
+	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
+	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
+], {
+	duration: 1000, //milliseconds
+	easing: 'ease-in-out', //'linear', a bezier curve, etc.
+	delay: 10, //milliseconds
+	endDelay: 0, //milliseconds
+    iterationStart : 0, //
+	iterations: 1000, //or a number
+	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
+	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+});
+
+var message = document.getElementById("mcode4");
+
+// ready promise
+player.ready.then(function(value) {
+	message.innerHTML += "[성공] 애니메이션 시작" + "&lt;br&gt;";
+}, function(reason) {
+	message.innerHTML += "[실패] 애니메이션 시작" + "&lt;br&gt;";
+});
+
+// finished promise
+player.finished.then(function(value) {
+	message.innerHTML += "[성공] 애니메이션 종료" + "&lt;br&gt;";
+}, function(reason) {
+	message.innerHTML += "[실패] 애니메이션 종료" + "&lt;br&gt;";
+});
+
+
+
+
+
+var str=message.innerHTML;
+</code></pre>
 					</section>
+				</section>
+				<section>
+						<h2>Multiple Animation</h2>
+						<p>Web Animation API Spec-2</p>
+				</section>
+				<section>
 					<section>
 						<h3>Timeline 객체</h3>
 						<small><a href="http://www.w3.org/TR/web-animations/#animationtimeline">http://www.w3.org/TR/web-animations/#animationtimeline</a></small>
@@ -324,18 +457,15 @@ interface DocumentTimeline : AnimationTimeline {
 						</code></pre>
 					</section>
 					<section>
-						<h3>Timeline 객체 (Demo)</h3>
-					</section>
-				</section>
-				<section>
-						<h2>Multiple Animation</h2>
-						<p>Web Animation API Spec-2</p>
-				</section>
-				<section>
-					<section>
-						<h2>Multiple Animation</h2>
-						<p>다수 엘리먼트의 애니메이션을 제어</p>
-						<iframe src="http://codepen.io/danwilson/embed/PqxvJo?height=268&amp;theme-id=0&amp;slug-hash=PqxvJo&amp;default-tab=result&amp;user=danwilson" scrolling="no" frameborder="0" height="268" allowtransparency="true" allowfullscreen="true" class="cp_embed_iframe undefined" style="width: 100%; overflow: hidden;"></iframe>
+						<h3>Timeline 객체</h3>
+						<p>다수 Animation 애니메이션을 제어</p>
+<pre><code>
+var players = document.timeline.getAnimations();
+players.forEach(function(player, i, ra) {
+      //player.pause();
+      //player.play();
+});</code></pre>
+						<iframe height='268' scrolling='no' src='http://codepen.io/danwilson/embed/PqgKVK/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/danwilson/pen/PqgKVK/'>Pause All those Random Dots!</a> by Dan Wilson (<a href='http://codepen.io/danwilson'>@danwilson</a>) on <a href='http://codepen.io'>CodePen</a></iframe>
 					</section>
 					<section>
 						<h3>KeyframeEffects</h3>
@@ -417,6 +547,8 @@ m.animate([
 					<h3>브라우저 지원 범위</h3>
 					<img src="image/support.png">
 					<small><a href="http://caniuse.com/#feat=web-animation">http://caniuse.com/#feat=web-animation</a></small>
+					Enable Experimental Web Platform Feature
+					실험용 웹 플랫폼 기능 사용
 				</section>
 				<section>
 					<h3>web-animations-js polifil</h3>
@@ -464,8 +596,9 @@ m.animate([
 					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
-		</script>
 
+		</script>
+		<script src="live-code/live-code.js"></script>
 	</body>
 </html>
 
