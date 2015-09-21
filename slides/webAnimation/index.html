@@ -443,35 +443,17 @@ var str=message.innerHTML;
 				</section>
 				<section>
 					<section>
-						<h3>Timeline 객체</h3>
-						<small><a href="http://www.w3.org/TR/web-animations/#animationtimeline">http://www.w3.org/TR/web-animations/#animationtimeline</a></small>
-						<pre><code>
-interface AnimationTimeline {
-    readonly attribute double currentTime;
-    sequence Animation getAnimations();
-};
-
-[Constructor (DOMHighResTimeStamp originTime)]
-interface DocumentTimeline : AnimationTimeline {
-};
-						</code></pre>
-					</section>
-					<section>
-						<h3>Timeline 객체</h3>
-						<p>다수 Animation 애니메이션을 제어</p>
-<pre><code>
-var players = document.timeline.getAnimations();
-players.forEach(function(player, i, ra) {
-      //player.pause();
-      //player.play();
-});</code></pre>
-						<iframe height='268' scrolling='no' src='http://codepen.io/danwilson/embed/PqgKVK/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/danwilson/pen/PqgKVK/'>Pause All those Random Dots!</a> by Dan Wilson (<a href='http://codepen.io/danwilson'>@danwilson</a>) on <a href='http://codepen.io'>CodePen</a></iframe>
-					</section>
-					<section>
 						<h3>KeyframeEffects</h3>
 						<p>Element.animation과 유사하나, 선언시 바로 실행되지 않는다.</p>
-						<iframe style="background-color: #fff;height:300px;" src="example/basic.html"></iframe>
-						<pre style="width:65%;float:right;margin:0"><code>
+						<div class="playground">
+						    <div id="code4" class="box" style="left:25px"></div>
+						    <div style="height: 200px;float: left;width: 200px;margin-top: 170px;">
+						    	<button class="cancel" onclick="player.cancel();">player.cancel()</button>
+						    	<button class="finish" onclick="player.finish();">player.finish()</button>
+						    	<div id="mcode4" class="message"></div>
+						    </div>
+						</div>
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>
 var effect = new KeyframeEffect(document.getElementById("box"),
   [
     { opacity: 1 },
@@ -481,7 +463,7 @@ var effect = new KeyframeEffect(document.getElementById("box"),
     fill: 'both'
   });
 document.timeline.play(effect);
-						</code></pre>
+</code></pre>
 					</section>
 					<section>
 						<h3>GroupEffects</h3>
@@ -514,6 +496,31 @@ document.timeline.play(sequence);
 					</section>
 					<section>
 						<h3>GroupEffects과 SequenceEffect (Demo)</h3>
+					</section>
+					<section>
+						<h3>AnimationTimeline 객체</h3>
+						<small><a href="http://www.w3.org/TR/web-animations/#animationtimeline">http://www.w3.org/TR/web-animations/#animationtimeline</a></small>
+						<pre><code>
+interface AnimationTimeline {
+    readonly attribute double currentTime;
+    sequence Animation getAnimations();
+};
+
+[Constructor (DOMHighResTimeStamp originTime)]
+interface DocumentTimeline : AnimationTimeline {
+};
+						</code></pre>
+					</section>
+					<section>
+						<h3>AnimationTimeline 객체</h3>
+						<p>Animation 애니메이션을 얻거나, 실행시킴</p>
+<pre><code>var players = document.timeline.getAnimations();
+players.forEach(function(player, i, ra) {
+      //player.pause();
+      //player.play();
+});
+</code></pre>
+						<iframe height='268' scrolling='no' src='http://codepen.io/danwilson/embed/PqgKVK/?height=268&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/danwilson/pen/PqgKVK/'>Pause All those Random Dots!</a> by Dan Wilson (<a href='http://codepen.io/danwilson'>@danwilson</a>) on <a href='http://codepen.io'>CodePen</a></iframe>
 					</section>
 				</section>
 				<section>
