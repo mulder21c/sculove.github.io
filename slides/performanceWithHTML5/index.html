@@ -77,8 +77,8 @@ blockquote {
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-transition="linear" data-background-transition="slide">
-					<h2>HTML5를 활용한<h2>
+				<section data-background="image/performance.jpg" data-transition="zoom" data-background-transition="zoom">
+					<h1><span class="strong">HTML5</span>를 활용한<h1>
 					<h2>Front-End 성능 개선</h2>
 					<br>
 					<p>
@@ -90,34 +90,36 @@ blockquote {
 						<h2>성능 이란 무엇인가?</h2>
 						<p><span class="strong">RAIL</span> performance model</p>
 						<img src="image/rail.png"/>
-						<small>http://developers.google.com <a href="http://goo.gl/axNG6r">http://goo.gl/axNG6r</a></small>
+						<small>developers.google.com <a href="http://goo.gl/axNG6r">http://goo.gl/axNG6r</a></small>
 					</section>
 					<section>
-						<h2>오늘은</h2>
-						<h2><span class="strong">Loading</span>에 대해서만</h2>
-						<h2>이야기합니다</h2>
+						<h3>오늘은</h3>
+						<h3><span class="strong">Loading</span>에 대해서만</h3>
+						<h3>이야기합니다</h2>
 					</section>
 				</section>
 				<section>
 					<section>
-						<h2>로딩 과정의 이해</h2>
+						<h3>로딩 과정의 이해</h3>
 						<img src="image/loading.jpg" style="width:90%"/>
 					</section>
 					<section>
-						<h2>Connect / Request / Response</h2>
+						<h3>Connect / Request / Response</h3>
 						<img src="image/request_response.png">
 						<p>Stalled == Browser waiting</p>
 						<p>TTFB == Server Time</p>
 					</section>
 					<section>
-						<h2>Waterfall Chart</h2>
+						<h3>Waterfall Chart</h3>
 						<img src="image/waterfallchart.png">
 					</section>
 				</section>
 				<section>
 					<h2>Front End 성능 개선이란?</h2>
-					<div class="fragment">
-						<h3 class="strong">== Waterfall chart를 어떻게 개선할 것인가?</h3>
+				</section>
+				<section>
+					<div>
+						<h3 class="strong">Waterfall chart를 어떻게 개선할 것인가?</h3>
 						<img src="image/waterfallchart.png">
 					</div>
 				</section>
@@ -129,11 +131,11 @@ blockquote {
 				</section>
 				<section>
 					<section>
-						<h2>Waterfall chart의 <span class="strong">높이</span> 줄이기</h2>
+						<h3>Waterfall chart의 <span class="strong">높이</span> 줄이기</h3>
 						<img src="image/wf-height.png"/>
 					</section>
 					<section>
-						<h2>HTTP Request <span class="strong">수</span>를 줄이자</h2>
+						<h3>HTTP Request <span class="strong">수</span>를 줄이자</h3>
 					</section>
 					<section>
 						<h2>왜?</h2>
@@ -178,16 +180,16 @@ blockquote {
 					</ul>
 				</section>
 				<section>
-					<h2>JS, CSS의 Merge (Demo)</h2>
+					<h2>JS, CSS의 Merge</h2>
 					<p>Grunt, gulp와 같은 자동화 툴을 이용한 자동 merge</p>
 				</section>
 				<section>
 					<section>
-						<h2>IMAGE의 Merge (CSS Sprite)</h2>
+						<h3>IMAGE의 Merge (CSS Sprite)</h3>
 						<img src="image/csssprite1.png">
 					</section>
 					<section>
-						<h2>IMAGE의 Merge (CSS Sprite)</h2>
+						<h3>IMAGE의 Merge (CSS Sprite)</h3>
 						<img src="image/csssprite2.png">
 						<p><span class="strong">background-image/position</span>을 이용한 CSS Sprite</p>
 						<pre><code>
@@ -208,67 +210,72 @@ blockquote {
 						<p><span class="strong">6KBytes</span> 이미지</p>
 					</section>
 					<section>
-						<h3>IMAGE 제거 (CSS3 Effect - Demo)</h3>
-						<ol>
-							<li>gradient, box-shadow</li>
-							<li>border-radius</li>
-							<li>:before</li>
-							<li>:after, gradient</li>
-						</ol>
-						<br>
-						<img src="image/snap.jpeg">
-					</section>
-					<section>
 						<h3>IMAGE 제거 (CSS3 Effect)</h3>
-<div style="float:left;width:50%;">
-	<iframe width="100%" height="420px" src="http://cdn.tutsplus.com/net/uploads/legacy/1050_icon/demo.html"></iframe>
+<div id="iconDemo">
+  <a class="docIcon"></a>
 </div>
-<div style="float:left; width:50%">
-	<pre><code>
-.docIcon {
+<pre><code class="liveCoding css" data-livecoding-id="iconDemo" contenteditable>.docIcon {
         background:#eee;
-        background:-webkit-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
-        border:1px solid #ccc;
-        border-radius:3px 15px 3px 3px;
-        box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
         display:block;
-        width:40px;
-        height:56px;
+        width:80px;
+        height:112px;
         position:relative;
-        text-indent:-9999em;
         margin:42px auto;
+        border:1px solid #ccc;
+/*
+        background:-webkit-linear-gradient(top, #ddd 0, #eee 15%, #fff 40%, #fff 70%, #eee 100%);
+        box-shadow:inset rgba(255,255,255,0.8) 0 1px 1px;
+        border-radius:3px 15px 3px 3px;
+*/
 }
 .docIcon:before {
+/*
         content:"";
         display:block;
         position:absolute;
         top:0;
         right:0;
-        width:15px;
-        height:15px;
+        width:30px;
+        height:30px;
         background:#ccc;
+*/
+/*
         background:-webkit-linear-gradient(45deg, #fff 0,  #eee 50%, #ccc 100%);
         box-shadow:rgba(0,0,0,0.05) -1px 1px 1px, inset white 0 0 1px;
         border-bottom:1px solid #ccc;
         border-left:1px solid #ccc;
+*/
+/*
         border-radius:0 14px 0 0;
+*/
 }
 
 .docIcon:after {
+/*
         content:"";
         display:block;
         position:absolute;
         left:0;
         top:0;
         width:60%;
-        margin:22px 20% 0;
+        height:60px;
         background:#ccc;
+*/
+/*
         background:-webkit-linear-gradient(top, #ccc 0, #ccc 20%, #fff 20%, #fff 40%, #ccc 40%, #ccc 60%, #fff 60%, #fff 80%, #ccc 80%, #ccc 100%);
-        height:15px;
+*/
+/*
+        margin:22px 20% 0;
+*/
 }
-	</code></pre>
-</div>
-	<p style="clear:both;"><span class="strong">1KBytes</span> CSS3 Effect</p><small><a href="http://goo.gl/MHCbpA">goo.gl/MHCbpA</a></small>
+</code></pre>
+					</section>
+					<section>
+						<h3>IMAGE 제거 (CSS3 Effect)</h3>
+						<h4><span class="strong">6배</span>의 용량 감소</h4>
+						<img src="image/csseffect.png">
+						<p><span class="strong">1KBytes</span> CSS3 Effect</p>
+					</section>
 					</section>
 					<section>
 						<h3>CSS BUTTON</h3>
@@ -583,6 +590,8 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 					{ src: '../../revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
 					{ src: '../../revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: '../../revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					// https://github.com/iamvdo/Reveal-liveCoding
+					{ src: '../../revealjs/plugin/live-coding/live-coding.js', async: true, condition: function() { return !!document.body.classList; }},
 					{ src: '../../revealjs/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: '../../revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: '../../revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
