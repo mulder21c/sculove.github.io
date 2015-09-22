@@ -145,6 +145,10 @@ blockquote {
 						<img src="image/settimeout.png"/>
 					</section>
 					<section>
+						<h3>구현하기가 복잡하고, 어렵다</h3><br>
+						<iframe src="example/settimeout.html" style="background-color: #fff;width:500px;height:200px"></iframe>
+					</section>
+					<section>
 						<h3>구현하기가 복잡하고, 어렵다</h3>
 						<pre><code>
 function animate(el, x, y, duration) {
@@ -363,23 +367,23 @@ var player = document.getElementById("code1").animate([
 						<blockquote>Animation=Element.animate(Keyframes, <span class="semi-strong">AnimationEffectTiming</span>)</blockquote>
 						<p><span class="semi-strong">offset</span>을 이용하여 animation의 중간 단계를 지정할수 있다.</p>
 						<div class="playground">
-						    <div id="code2" class="box"></div>
+						    <div id="code2" class="smallbox"></div>
+						    <div style="height: 50px;float: left;width: 150px;margin-top: 170px;">
+						    	<button class="finish" onclick="player.cancel();">초기화</button>
+						    </div>
 						</div>
-						<pre style="width:80%;float:right;margin:0"><code contenteditable>
-var player = document.getElementById("code2").animate([
-	{ offset: 0, transform: 'scale(1)', opacity: 1 },
-	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
-	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
-	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
+						<pre style="width:80%;float:right;margin:0"><code contenteditable>player = document.getElementById("code2").animate([
+	{ offset: 0, transform: 'translate3d(0px,0px,0)' },
+	{ offset: 0.25, transform: 'translate3d(100px,0px,0)' },
+	{ offset: 0.5, transform: 'translate3d(100px,100px,0)' },
+	{ offset: 0.75, transform: 'translate3d(0,100px,0)' },
+	{ offset: 1, transform: 'translate3d(0,0px,0)' }
 ], {
-	duration: 700, //milliseconds
-	easing: 'ease-in-out', //'linear', a bezier curve, etc.
+	duration: 1500, //milliseconds
+	easing: "ease-in-out", // "linear", "ease", "ease-in", "ease-out" a bezier curve, etc.
 	delay: 10, //milliseconds
-	endDelay: 0, //milliseconds
-    iterationStart : 0, //
 	iterations: Infinity, //or a number
-	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
-	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+	direction: 'alternate' //'normal', 'reverse', 'alternate', 'alternate-reverse' etc.
 });
 						</code></pre>
 					</section>
@@ -419,21 +423,17 @@ enum AnimationPlayState { "idle", "pending", "running", "paused", "finished" };
 						    	<button class="finish" onclick="document.getElementById('code3').innerHTML = player.playState;">player.playState</button>
 						    </div>
 						</div>
-						<pre style="width:75%;float:right;margin:0"><code contenteditable>
-player = document.getElementById("code3").animate([
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>player = document.getElementById("code3").animate([
 	{ offset: 0, transform: 'scale(1)', opacity: 1 },
 	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
 	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
 	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
 ], {
-	duration: 1000, //milliseconds
-	easing: 'ease-in-out', //'linear', a bezier curve, etc.
+	duration: 1500, //milliseconds
+	easing: "ease-in-out", // "linear", "ease", "ease-in", "ease-out" a bezier curve, etc.
 	delay: 10, //milliseconds
-	endDelay: 0, //milliseconds
-    iterationStart : 0, //
-	iterations: 1000, //or a number
-	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
-	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+	iterations: Infinity, //or a number
+	direction: 'alternate' //'normal', 'reverse', 'alternate', 'alternate-reverse' etc.
 });</code></pre>
 					</section>
 					<section>
@@ -448,8 +448,7 @@ player = document.getElementById("code3").animate([
 						    	<label style="font-size:0.5em">player.currentTime</label><input id="timeline" type="range" min="0" max="5000" step="1" value="1" onchange="document.getElementById('timelineval').innerHTML = player.currentTime = document.getElementById('timeline').value; "><div id="timelineval" style="font-size:0.5em">1</div>
 						    </div>
 						</div>
-						<pre style="width:75%;float:right;margin:0"><code contenteditable>
-player = document.getElementById("code3_1").animate([
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>player = document.getElementById("code3_1").animate([
 	{ offset: 0, transform: 'translate3d(0px,0px,0)' },
 	{ offset: 0.25, transform: 'translate3d(100px,0px,0)' },
 	{ offset: 0.5, transform: 'translate3d(100px,100px,0)' },
@@ -472,21 +471,17 @@ player = document.getElementById("code3_1").animate([
 						    	<div id="mcode4" class="message"></div>
 						    </div>
 						</div>
-						<pre style="width:75%;float:right;margin:0"><code contenteditable>
-player = document.getElementById("code4").animate([
+						<pre style="width:75%;float:right;margin:0"><code contenteditable>player = document.getElementById("code4").animate([
 	{ offset: 0, transform: 'scale(1)', opacity: 1 },
 	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
 	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
 	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
 ], {
-	duration: 1000, //milliseconds
-	easing: 'ease-in-out', //'linear', a bezier curve, etc.
+	duration: 1500, //milliseconds
+	easing: "ease-in-out", // "linear", "ease", "ease-in", "ease-out" a bezier curve, etc.
 	delay: 10, //milliseconds
-	endDelay: 0, //milliseconds
-    iterationStart : 0, //
 	iterations: 1000, //or a number
-	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
-	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+	direction: 'alternate' //'normal', 'reverse', 'alternate', 'alternate-reverse' etc.
 });
 
 var message = document.getElementById("mcode4");
@@ -745,8 +740,8 @@ var animation = document.timeline.play(gEffectC);
 					</section>
 					<section>
 						<h3>Chrome 45 지원범위</h3>
-						<p>Web Animation Spec-1 구현 완료, Spec-2 일부 구현</p>
-						<small>#Enable Experimental Web Platform Feature 활성화 적용시</small>
+						<p>Web Animation <span class="strong">Spec-1 구현 완료</span>, <span class="strong">Spec-2 일부 구현</span></p>
+						<small><span class="semi-strong">#Enable Experimental Web Platform Feature</span> 활성화 적용시</small>
 						<iframe height='468' scrolling='no' src='http://codepen.io/danwilson/embed/xGBKVq/?height=468&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/danwilson/pen/xGBKVq/'>WAAPI Browser Support Test</a> by Dan Wilson (<a href='http://codepen.io/danwilson'>@danwilson</a>) on <a href='http://codepen.io'>CodePen</a></iframe>
 					</section>
 					<section>
