@@ -94,8 +94,8 @@ blockquote {
 					</section>
 					<section>
 						<h3>오늘은</h3>
-						<h3><span class="strong">Loading</span>에 대해서만</h3>
-						<h3>이야기합니다</h2>
+						<h2><span class="strong">Loading</span></h2>
+						<h3>에 대해서만 이야기합니다</h3>
 					</section>
 				</section>
 				<section>
@@ -105,13 +105,14 @@ blockquote {
 					</section>
 					<section>
 						<h3>Connect / Request / Response</h3>
+						<p>자원 요청에 대한 과정</p>
 						<img src="image/request_response.png">
 						<p>Stalled == Browser waiting</p>
 						<p>TTFB == Server Time</p>
 					</section>
 					<section>
 						<h3>Waterfall Chart</h3>
-						<img src="image/waterfallchart.png">
+						<img src="image/waterfallchart.png" style="width:95%">
 					</section>
 				</section>
 				<section>
@@ -124,7 +125,9 @@ blockquote {
 					</div>
 				</section>
 				<section data-background="#403200">
-					<h2>우리가 개선할 페이지는?</h2>
+					<h2>우리가 개선할 페이지는?</h2><br>
+					<p><span class="strong">30</span> Request, <span class="strong">2.0MB</span> transfered</p>
+					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a><a href="#/23">[tuning3]</a>
 				</section>
 				<section data-background="#8c4738">
 					<h2>요청 수 최소화 하기</h2>
@@ -174,7 +177,7 @@ blockquote {
 					<ul>
 						<li>자원의 Merge</li>
 						<li>불필요한 자원의 제거</li>
-						<li>자원의 재사용</li>
+						<li>자원의 재사용 (Cache)</li>
 						<li>초기 로딩 속도에 필요 없는 자원 나중에 로딩</li>
 						<li>...</li>
 					</ul>
@@ -312,14 +315,68 @@ blockquote {
 					</section>
 					<section>
 						<h3>LocalStorage</h3>
+						HTML5에서는 클라이언트에 데이터를 저장하는 2개의 객체를 제공한다.
+하나의 세션 단위로 데이터를 저장하는 SessionStorage 와,
+만료 기간이 없는 LocalStorage 가 있다.
+
+두 가지 모두 key/value 쌍으로 저장하며, 사용 방법은 거의 비슷하다.
+여기서는 Local Strorage 에 대해 자세히 살펴보려고 한다.
+
+
+간단 사용법
+
+사용법은 정말 간단하다.
+전역으로 할당되어 있는 localStorage의 메서드를 사용하며, 데이터는 key/value 쌍으로 구성된다.
+
+아래와 같이 setItem() 과 getItem()으로 값을 저장하거나 가져올 수 있다.
+
+    localStorage.setItem('foo', 'bar');
+    localStorage.getItem('foo'); //--> "bar"
+
+주의할 것은 key와 value 모두 string 으로 저장된다는 것이다.
+예를 들어, 아래 코드에서처럼 원시 타입으로 저장해도, 가져오는 값의 타입은 string 이다.
+
+    var n = 1;
+    localStorage.setItem('n', n);
+    typeof localStorage.getItem('n'); //--> "string"
+
+Object 타입을 추가할 경우, toString()을 호출한 형태로 저장된다.
+
+    var obj = {};
+    var obj2 = {
+      toString: function () {
+        return "I'am obj2";
+      }
+    };
+
+    localStorage.setItem('obj', obj);
+    localStorage.setItem('obj2', obj2);
+
+    localStorage.getItem('obj'); //--> "[object Object]"
+    localStorage.getItem('obj2'); //--> "I'm obj2"
+
+
+setItem()과 getItem()은 대부분의 경우 에러 없이 암묵적으로 수행된다.
+  - setItem()은 기존 아이템이 있을 경우 덮어쓴다.
+  - getItem()으로 값을 찾지 못했다면, 에러를 발생하지 않고 null을 리턴한다.
+
+
+값은 [ ]  형태로도 설정하거나 가져올 수도 있다.
+
+    localStorage['foo'] = 'bar';
+    localStorage['foo']; //--> "bar"
+
 					</section>
 					<section>
 						<h3>JS,CSS의 LocalStorage를 이용한 캐싱</h3>
 						<p>자주 변경이 되지 않는 파일에 대해서는 localStorage를 이용해 확실하게 캐싱되도록 처리</p>
+						<img src="image/basketlog.png" style="background-color: #fff"/>
 					</section>
 				</section>
 				<section data-background="#403200">
-					<h2>얼마나 개선되었나?</h2>
+					<h2>얼마나 개선되었나?</h2><br>
+					<p><span class="strong">11</span> Request, <span class="strong">under 2.0MB</span> transfered</p>
+					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a>&nbsp;<a href="#/23">[tuning3]</a>
 				</section>
 				<section data-background="#8c4738">
 					<h2>요청 크기 최소화 하기</h2>
@@ -337,6 +394,7 @@ blockquote {
 						<ul>
 							<li>자원의 크기를 최소화</li>
 							<li>HTTP Request Header 줄이기</li>
+							<li>Gzip compress</li>
 							<li>...</li>
 						</ul>
 					</section>
@@ -446,7 +504,7 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 						<h3>srcset을 이용</h3><pre><code>
 	&lt;img srcset="retina-image.jpg 2x" src="image.jpg" alt="an image" /&gt;
 	</code></pre>
-<p>화면의 pixel ratio에 맞는 이미지를 사용</p>
+<p>화면의 <span class="strong">pixel ratio</span>에 맞는 이미지를 사용</p>
 					</section>
 					<section>
 						<h3>picture를 이용</h3><pre><code>
@@ -458,11 +516,14 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
     &lt;img src="image.jpg" alt="an image" /&gt;
 &lt;/picture&gt;
 	</code></pre>
-<p>화면의 회전상태에 따라, 화면의 pixel ratio에 맞는 이미지를 사용</p>
+<p>화면의 <span class="strong">회전상태</span>에 따라</p>
+<p>화면의 pixel ratio에 맞는 이미지를 사용</p>
 					</section>
 				</section>
 				<section data-background="#403200">
-					<h2>얼마나 개선되었나?</h2>
+					<h2>얼마나 개선되었나?</h2><br>
+					<p><span class="strong">11</span> Request, <span class="strong">546 KB / 870 KB</span> transfered</p>
+					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a>&nbsp;<a href="#/23">[tuning3]</a>
 				</section>
 				<section data-background="#8c4738">
 					<h2>랜더링 빠르게 하기</h2>
@@ -519,15 +580,6 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 						<h2>HTML5를 이용한 스크립트 로딩 </h2>
 					</section>
 					<section>
-						<h3>async를 이용</h3>
-<p>스크립트를 실행할 때만, HTML 파싱이 중단</p>
-						<pre><code>
-	&lt;script async src="js.js"&gt;&lt;/script&gt;
-	&lt;script async&gt; // script codes &lt;/script&gt;
-	</code></pre>
-<img src="image/scriptasync.png" style="width:90%"/>
-					</section>
-					<section>
 						<h3>defer를 이용</h3>
 <p>HTML 파싱이 완료된 이후에, 스크립트를 실행</p>
 						<pre><code>
@@ -537,14 +589,28 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 <img src="image/scriptdefer.png" style="width:90%"/>
 					</section>
 					<section>
-						<h3>async와 defer의 적절한 사용</h3>
+						<h3>async를 이용</h3>
+<p>스크립트를 실행할 때만, HTML 파싱이 중단</p>
+						<pre><code>
+	&lt;script async src="js.js"&gt;&lt;/script&gt;
+	&lt;script async="false" src="js.js"&gt;&lt;/script&gt;
+	&lt;script async&gt; // script codes &lt;/script&gt;
+	</code></pre>
+<img src="image/scriptasync.png" style="width:90%"/>
+<p><span class="strong">async=false</span>일 경우, 순서 보장 (기본값은 true)</p>
+					</section>
+					<section>
+						<h3>defer와 async의 적절한 사용</h3>
 <img src="image/scriptsum.jpg" style="width:90%"/><br><br>
-<p>DOM 제어와 관련이 없는 스크립트는 <span class="strong">async</span>를 사용</p>
 <p>DOM 제어와 관련이 있는 스크립트는 <span class="strong">defer</span>를 사용</p>
+<p>DOM 제어와 관련이 없고, 가능한 의존성이 없는 스크립트는 <span class="strong">async</span>를 사용</p>
 					</section>
 				</section>
 				<section data-background="#403200">
-					<h2>얼마나 개선되었나?</h2>
+					<h2>얼마나 개선되었나?</h2><br>
+					<p><span class="strong">11</span> Request, <span class="strong">546 KB / 870 KB</span> transfered</p>
+					<p>But, <span class="strong">improved rendering</span></p>
+					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a>&nbsp;<a href="#/23">[tuning3]</a>
 				</section>
 				<section>
 					<h2>Front End 성능 개선이란?</h2>
