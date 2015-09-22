@@ -85,6 +85,17 @@ blockquote {
     transform:translate3d(0,0,0);
 }
 
+.smallbox {
+    border-radius:5px;
+    width : 50px;
+    height : 50px;
+    position:absolute;
+    left : 0px;
+    top : 0px;
+    background-color: #668392;
+    transform:translate3d(0,0,0);
+}
+
 .message {
 	background-color: #fff;
 	font-size:0.5em !important;
@@ -405,8 +416,6 @@ enum AnimationPlayState { "idle", "pending", "running", "paused", "finished" };
 						    	<button class="cancel" onclick="player.cancel();">player.cancel()</button>
 						    	<button class="finish" onclick="player.finish();">player.finish()</button>
 						    	<button class="finish" onclick="document.getElementById('code3').innerHTML = player.playState;">player.playState</button>
-						    	<label style="font-size:0.5em">player.playbackRate</label><input id="pbr" type="range" min="0" max="10" step="0.1" value="1" onchange="document.getElementById('inval').innerHTML = player.playbackRate = document.getElementById('pbr').value; "><div id="inval" style="font-size:0.5em">1</div>
-
 						    </div>
 						</div>
 						<pre style="width:75%;float:right;margin:0"><code contenteditable>
@@ -426,33 +435,30 @@ player = document.getElementById("code3").animate([
 	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
 });</code></pre>
 					</section>
-<section>
+					<section>
 						<h3>Animation 객체</h3>
-						<p>Animation <span class="strong">동작상태</span>를 조절할수 있다.</p>
+						<p><span class="strong">playbackRate, currentTime</span>으로 Timeline을 조절할수 있다.</p>
 						<div class="playground">
-						    <div id="code3" class="box" style="left:25px"></div>
+						    <div id="code3_1" class="smallbox" style="left:25px"></div>
 						    <div style="height: 200px;float: left;width: 200px;margin-top: 170px;">
-						    	<button class="play" onclick="player.play();">player.play()</button>
-						    	<button class="pause" onclick="player.pause();">player.pause()</button>
+						    	<button class="cancel" onclick="player.finish();">player.finish()</button>
+						    	<!-- <button class="pause" onclick="player.pause();">player.pause()</button> -->
 						    	<label style="font-size:0.5em">player.playbackRate</label><input id="pbr" type="range" min="0" max="10" step="0.1" value="1" onchange="document.getElementById('inval').innerHTML = player.playbackRate = document.getElementById('pbr').value; "><div id="inval" style="font-size:0.5em">1</div>
-
+						    	<label style="font-size:0.5em">player.currentTime</label><input id="timeline" type="range" min="0" max="5000" step="1" value="1" onchange="document.getElementById('timelineval').innerHTML = player.currentTime = document.getElementById('timeline').value; "><div id="timelineval" style="font-size:0.5em">1</div>
 						    </div>
 						</div>
 						<pre style="width:75%;float:right;margin:0"><code contenteditable>
-player = document.getElementById("code3").animate([
-	{ offset: 0, transform: 'scale(1)', opacity: 1 },
-	{ offset: 0.3, transform: 'scale(.5)', opacity: 0.5 },
-	{ offset: 0.7875, transform: 'scale(.667)', opacity: 0.667 },
-	{ offset: 1, transform: 'scale(.6)', opacity: 0.6 }
+player = document.getElementById("code3_1").animate([
+	{ offset: 0, transform: 'translate3d(0px,0px,0)' },
+	{ offset: 0.25, transform: 'translate3d(100px,0px,0)' },
+	{ offset: 0.5, transform: 'translate3d(100px,100px,0)' },
+	{ offset: 0.75, transform: 'translate3d(0,100px,0)' },
+	{ offset: 1, transform: 'translate3d(0,0px,0)' }
 ], {
-	duration: 1000, //milliseconds
+	duration: 5000, //milliseconds
 	easing: 'ease-in-out', //'linear', a bezier curve, etc.
-	delay: 10, //milliseconds
-	endDelay: 0, //milliseconds
-    iterationStart : 0, //
 	iterations: 1000, //or a number
-	direction: 'alternate', //'normal', 'reverse', 'alternate' etc.
-	fill: 'forwards' // "forwards", 'backwards', 'both', 'none', 'auto'
+	direction: 'normal', //'normal', 'reverse', 'alternate' etc.
 });</code></pre>
 					</section>
 					<section>
@@ -544,10 +550,10 @@ players.forEach(function(player, i, ra) {
 					</section>
 					<section>
 						<h3>AnimationTimeline 객체</h3>
-						<p>선언된 Animation Effect를 실행한다.</p>
-<pre><code>var animation = document.timeline.play(effect);</code></pre>
-						<p><span class="strong">Animation 객체를 반환</span>하여 애니메이션 제어가 가능하다</p>
-
+						<p>선언된 Animation Effect를 <span class="strong">Timeline으로 관리</span>한다.</p>
+<pre><code>document.timeline.currentTime;</code></pre>
+<pre><code>var animation = document.timeline.play(effect);</code></pre><br>
+						<p>Animation 객체를 반환하여 애니메이션 제어가 가능하다</p>
 					</section>
 				</section>
 				<section  data-background="#8c4738">
