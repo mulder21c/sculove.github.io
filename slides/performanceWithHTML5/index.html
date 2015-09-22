@@ -127,7 +127,7 @@ blockquote {
 				<section data-background="#403200">
 					<h2>우리가 개선할 페이지는?</h2><br>
 					<p><span class="strong">30</span> Request, <span class="strong">2.0MB</span> transfered</p>
-					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a><a href="#/23">[tuning3]</a>
+					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a>&nbsp;<a href="#/23">[tuning3]</a>&nbsp;<a href="#/24">[localStorage]</a>
 				</section>
 				<section data-background="#8c4738">
 					<h2>요청 수 최소화 하기</h2>
@@ -305,72 +305,50 @@ blockquote {
 						<h3>브라우저 캐시는 제한이 있다.</h3>
 						<p>limit를 초과한 경우, 기존 캐싱 자원이 삭제됨</p>
 						<img src="image/cachelimit.png"/><br>
-						<small>http://www.guypo.com <a href="goo.gl/tl7bJm">goo.gl/tl7bJm</a></small>
+						<small>www.guypo.com : <a href="goo.gl/tl7bJm">goo.gl/tl7bJm</a></small>
 					</section>
 					<section>
 						<h3>LocalStorage는 빠르다</h3>
-						<p>Smartphone Browser localStorage is up to <span class="strong">5x</span> Faster than Native Cache</p>
+						<p>Smartphone Browser localStorage is<br>
+						up to <span class="strong">5x</span> Faster than Native Cache</p>
 						<img src="image/localstorage.png"/><br>
-						<small>http://www.mobify.com <a href="http://goo.gl/xqJPR2">http://goo.gl/xqJPR2</a></small>
+						<small>www.mobify.com : <a href="http://goo.gl/xqJPR2">http://goo.gl/xqJPR2</a></small>
 					</section>
 					<section>
-						<h3>LocalStorage</h3>
-						HTML5에서는 클라이언트에 데이터를 저장하는 2개의 객체를 제공한다.
-하나의 세션 단위로 데이터를 저장하는 SessionStorage 와,
-만료 기간이 없는 LocalStorage 가 있다.
+						<h3>window.localStorageLocalStorage</h3>
+						<pre><code>// setItem, getItem
+localStorage.setItem("성능", "느림");
+localStorage.getItem("성능"); // "느림"
 
-두 가지 모두 key/value 쌍으로 저장하며, 사용 방법은 거의 비슷하다.
-여기서는 Local Strorage 에 대해 자세히 살펴보려고 한다.
-
-
-간단 사용법
-
-사용법은 정말 간단하다.
-전역으로 할당되어 있는 localStorage의 메서드를 사용하며, 데이터는 key/value 쌍으로 구성된다.
-
-아래와 같이 setItem() 과 getItem()으로 값을 저장하거나 가져올 수 있다.
-
-    localStorage.setItem('foo', 'bar');
-    localStorage.getItem('foo'); //--> "bar"
-
-주의할 것은 key와 value 모두 string 으로 저장된다는 것이다.
-예를 들어, 아래 코드에서처럼 원시 타입으로 저장해도, 가져오는 값의 타입은 string 이다.
-
-    var n = 1;
-    localStorage.setItem('n', n);
-    typeof localStorage.getItem('n'); //--> "string"
-
-Object 타입을 추가할 경우, toString()을 호출한 형태로 저장된다.
-
-    var obj = {};
-    var obj2 = {
-      toString: function () {
-        return "I'am obj2";
-      }
-    };
-
-    localStorage.setItem('obj', obj);
-    localStorage.setItem('obj2', obj2);
-
-    localStorage.getItem('obj'); //--> "[object Object]"
-    localStorage.getItem('obj2'); //--> "I'm obj2"
-
-
-setItem()과 getItem()은 대부분의 경우 에러 없이 암묵적으로 수행된다.
-  - setItem()은 기존 아이템이 있을 경우 덮어쓴다.
-  - getItem()으로 값을 찾지 못했다면, 에러를 발생하지 않고 null을 리턴한다.
-
-
-값은 [ ]  형태로도 설정하거나 가져올 수도 있다.
-
-    localStorage['foo'] = 'bar';
-    localStorage['foo']; //--> "bar"
-
+// like object
+localStorage["개선"] = "HTML5";
+localStorage["개선"]; // "HTML5"
+</code></pre>
+						<ul>
+							<li>도메인 별로 <span class="strong">영구적</span>으로 저장된다</li>
+							<li>key/value 쌍으로 저장한다</li>
+							<li>key/value 모두 <span class="strong">string</span>으로 저장된다</li>
+						</ul>
 					</section>
 					<section>
 						<h3>JS,CSS의 LocalStorage를 이용한 캐싱</h3>
 						<p>자주 변경이 되지 않는 파일에 대해서는 localStorage를 이용해 확실하게 캐싱되도록 처리</p>
-						<img src="image/basketlog.png" style="background-color: #fff"/>
+					</section>
+					<section>
+						<h3>LocalStorage를 이용하는 Flow</h3>
+						<img src="image/localstorageflow.png"/>
+					</section>
+					<section>
+						<h3>LocalStorage를 캐싱을 지원하는 오픈소스</h3>
+						<img src="image/basketlog.png" style="background-color: #fff"/><br>
+						<small><a href="http://addyosmani.github.io/basket.js/">http://addyosmani.github.io/basket.js/</a></small>
+					</section>
+					<section>
+						<h3>LocalStorage 적용</h3>
+						<p>LocalStorage에 Javascript가 저장된것을 확인 할수 있다</p>
+						<img src="image/localstorageex.png"/>
+						<br>
+						<h4>실제 예제는 마지막 장에서...</h4>
 					</section>
 				</section>
 				<section data-background="#403200">
@@ -611,6 +589,12 @@ function isHWAccelerable(){var e,r=!1,s=this.agent(),t=s.os.version,i=s.browser.
 					<p><span class="strong">11</span> Request, <span class="strong">546 KB / 870 KB</span> transfered</p>
 					<p>But, <span class="strong">improved rendering</span></p>
 					<a href="#/5">[raw]</a>&nbsp;<a href="#/13">[tuning1]</a>&nbsp;<a href="#/19">[tuning2]</a>&nbsp;<a href="#/23">[tuning3]</a>
+				</section>
+				<section data-background="#403200">
+					<p>LocalStorage를 사용하면</p>
+					<h2>얼마나 개선되나?</h2><br>
+					<p><span class="strong">10</span> Request, <span class="strong">351 KB</span> transfered</p>
+					<a href="#/5">[raw]</a>
 				</section>
 				<section>
 					<h2>Front End 성능 개선이란?</h2>
